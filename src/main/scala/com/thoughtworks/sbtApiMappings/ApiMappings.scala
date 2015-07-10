@@ -31,7 +31,7 @@ object ApiMappings extends AutoPlugin {
     autoAPIMappings := true,
     apiMappings ++= {
       (for {
-        jar <- (fullClasspath in Compile).value
+        jar <- (dependencyClasspath in Compile).value
         fullyFile = jar.data
         urlOption = fullyFile.getCanonicalPath match {
           case ScalaLibraryRegex(v) => {
