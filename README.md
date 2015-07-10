@@ -51,4 +51,4 @@ enablePlugins(ApiMappings)
 > doc
 ```
 
-Now, open the API documentation in your browser, and you will find links to the `scala.Option` and `scalaz.Monad`'s documentation in your `MyClass` page.
+Now, open the API documentation in your browser, and you will find the links to the `scala.Option` and `scalaz.Monad`'s documentation in your `MyClass` page.
