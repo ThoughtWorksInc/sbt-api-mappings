@@ -47,7 +47,7 @@ enablePlugins(ApiMappings)
 > reload
 ```
 
-#### Step 4: Generate you API documentation:
+#### Step 4: Generate your API documentation:
 
 ```
 > doc
