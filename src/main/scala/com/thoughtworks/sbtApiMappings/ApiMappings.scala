@@ -45,7 +45,6 @@ object ApiMappings extends AutoPlugin {
             Some(url(s"https://oss.sonatype.org/service/local/repositories/releases/archive/${organization.replace('.', '/')}/$name/$version/$jarBaseFile-javadoc.jar/!/index.html"))
           }
           case _ => {
-            println(fullyFile)
             None
           }
         }
