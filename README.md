@@ -12,7 +12,7 @@ For example:
 
 ```
 /**
- * My own class, which has a friend [[scala.Option]] and [[scalaz.Monad]].
+ * My own class, which has two friend, [[scala.Option]] and [[scalaz.Monad]].
  */
 class MyClass
 ```
