@@ -30,9 +30,7 @@ This plugin resolve this problem.
 #### Step 1: Add the following lines in your `project/plugins.sbt`:
 
 ``` sbt
-lazy val root = project in file(".") dependsOn `sbt-api-mappings`
-
-lazy val `sbt-api-mappings` = RootProject(uri("https://github.com/ThoughtWorksInc/sbt-api-mappings.git"))
+addSbtPlugin("com.thoughtworks" % "sbt-api-mappings" % "0.1.0")
 ```
 
 #### Step 2: And add the following lines in your `build.sbt`:
