@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ThoughtWorksInc/sbt-api-mappings.svg?branch=master)](https://travis-ci.org/ThoughtWorksInc/sbt-api-mappings)
 
-**sbt-api-mappings** is a Sbt plugin that fills apiMappings for common Scala libraries.
+**sbt-api-mappings** is a Sbt plugin that fills `apiMappings` for common Scala libraries.
 
 ## Motivation
 
