@@ -12,9 +12,9 @@ For example:
 
 ```
 /**
- * My own class, which has two friends, [[scala.Option]] and [[scalaz.Monad]].
+ * My own class, which works with [[scala.Option]] and [[scalaz.Monad]].
  */
-class MyClass
+class MyClass(optionMonad: scalaz.Monad[Option])
 ```
 
 Unfortunately when use run `doc` command in Sbt, you will receive a warning and the link would not be created.
