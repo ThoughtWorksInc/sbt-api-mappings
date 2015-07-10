@@ -30,7 +30,7 @@ This plugin resolve this problem.
 #### Step 1: Add the following lines in your `project/plugins.sbt`:
 
 ``` sbt
-addSbtPlugin("com.thoughtworks" % "sbt-api-mappings" % "0.1.0")
+addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings" % "0.1.0")
 ```
 
 #### Step 2: And add the following lines in your `build.sbt`:
