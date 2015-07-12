@@ -35,14 +35,14 @@ object ApiMappings extends AutoPlugin {
         fullyFile = jar.data
         urlOption = fullyFile.getCanonicalPath match {
           case ScalaLibraryRegex(v) => {
-            Some(url("http://scala-lang.org/api/" + v + "/"))
+            Some(url(raw"""http://scala-lang.org/api/$v/"""))
           }
           case PlayRegex(_, _, version) => {
-            Some(url( raw"""https://playframework.com/documentation/$version/api/scala/index.html"""))
+            Some(url(raw"""https://playframework.com/documentation/$version/api/scala/index.html"""))
           }
           case IvyRegex(organization, name, jarBaseFile) if jarBaseFile.startsWith(s"$name-") => {
             val version = jarBaseFile.substring(name.length + 1, jarBaseFile.length)
-            Some(url(s"https://oss.sonatype.org/service/local/repositories/releases/archive/${organization.replace('.', '/')}/$name/$version/$jarBaseFile-javadoc.jar/!/index.html"))
+            Some(url(raw"""https://oss.sonatype.org/service/local/repositories/releases/archive/${organization.replace('.', '/')}/$name/$version/$jarBaseFile-javadoc.jar/!/index.html"""))
           }
           case _ => {
             None
