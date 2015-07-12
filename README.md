@@ -23,7 +23,7 @@ Unfortunately when use run `doc` command in Sbt, you will receive a warning and 
 /path/to/MyClass.scala:3: Could not find any member to link for "scala.Option".
 ```
 
-This plugin resolve this problem.
+This plugin resolves the problem.
 
 ### Usage
 
