@@ -26,7 +26,9 @@ object ApiMappings extends AutoPlugin {
   private val IvyRegex = """^.*[/\\]([\.\-_\w]+)[/\\]([\.\-_\w]+)[/\\](?:jars|bundles)[/\\]([\.\-_\w]+)\.jar$""".r
 
   private val PlayRegex = """^.*[/\\]play(-[\w\-]+)?(_[\d\.]+)?-([\d\.]+).jar$""".r
-  
+
+  override final def trigger = allRequirements
+
   override final lazy val projectSettings = Seq(
     autoAPIMappings := true,
     apiMappings ++= {
