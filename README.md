@@ -30,22 +30,16 @@ This plugin resolves the problem.
 #### Step 1: Add the following lines in your `project/plugins.sbt`:
 
 ``` sbt
-addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings" % "0.1.0")
+addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings" % "0.2.0")
 ```
 
-#### Step 2: And add the following lines in your `build.sbt`:
-
-``` sbt
-enablePlugins(ApiMappings)
-```
-
-#### Step 3: Relead the Sbt configuration:
+#### Step 2: Relead the Sbt configuration:
 
 ```
 > reload
 ```
 
-#### Step 4: Generate your API documentation:
+#### Step 3: Generate your API documentation:
 
 ```
 > doc
