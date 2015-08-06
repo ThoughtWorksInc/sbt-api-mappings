@@ -32,9 +32,12 @@ object ApiMappings extends AutoPlugin {
   override final lazy val projectSettings = Seq(
     autoAPIMappings := true,
     apiMappings ++= {
+      val dependencyClasspathFiles = (for {
+        jar <- (dependencyClasspath in Compile).value ++ (dependencyClasspath in Compile).value
+      } yield jar.data)(collection.breakOut(Set.canBuildFrom))
+      val jarFiles = dependencyClasspathFiles ++ scalaInstance.value
       (for {
-        jar <- (dependencyClasspath in Compile).value
-        fullyFile = jar.data
+        fullyFile = jarFiles
         urlOption = fullyFile.getCanonicalPath match {
           case ScalaLibraryRegex(v) => {
             Some(url(raw"""http://scala-lang.org/files/archive/api/$v/index.html"""))
