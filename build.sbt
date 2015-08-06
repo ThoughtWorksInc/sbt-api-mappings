@@ -44,3 +44,6 @@ pomExtra :=
       <email>pop.atry@gmail.com</email>
     </developer>
   </developers>
+
+scalacOptions += "-deprecation"
+
