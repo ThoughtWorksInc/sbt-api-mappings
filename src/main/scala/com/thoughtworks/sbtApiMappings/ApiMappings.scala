@@ -21,7 +21,9 @@ import Keys._
 
 object ApiMappings extends AutoPlugin {
 
-  private val ScalaLibraryRegex = """^.*[/\\]scala-library-([\d\.]+).jar$""".r
+  private val ScalaInstanceLibraryRegex = """^(.+)\.jar$""".r
+
+  private val ScalaLibraryRegex = """^.*[/\\]scala-library-([\d\.]+)\.jar$""".r
 
   private val IvyRegex = """^.*[/\\]([\.\-_\w]+)[/\\]([\.\-_\w]+)[/\\](?:jars|bundles)[/\\]([\.\-_\w]+)\.jar$""".r
 
@@ -31,13 +33,18 @@ object ApiMappings extends AutoPlugin {
 
   override final lazy val projectSettings = Seq(
     autoAPIMappings := true,
+    apiMappings += scalaInstance.value.libraryJar -> url( raw"""http://scala-lang.org/files/archive/api/${scalaInstance.value.actualVersion}/index.html"""),
     apiMappings ++= {
-      val dependencyClasspathFiles = (for {
-        jar <- (dependencyClasspath in Compile).value ++ (dependencyClasspath in Compile).value
-      } yield jar.data)(collection.breakOut(Set.canBuildFrom))
-      val jarFiles = dependencyClasspathFiles ++ scalaInstance.value.jars
       (for {
-        fullyFile <- jarFiles
+        jarFile <- scalaInstance.value.jars
+        if jarFile != scalaInstance.value.libraryJar
+        ScalaInstanceLibraryRegex(libraryName) = jarFile.getName
+      } yield (jarFile -> url( raw"""http://scala-lang.org/files/archive/api/${scalaInstance.value.actualVersion}/$libraryName/index.html""")))(collection.breakOut(Map.canBuildFrom))
+    },
+    apiMappings ++= {
+      (for {
+        jar <- (dependencyClasspath in Compile in doc).value.toSet ++ (dependencyClasspath in Test in doc).value
+        fullyFile = jar.data
         urlOption = fullyFile.getCanonicalPath match {
           case ScalaLibraryRegex(v) => {
             Some(url(raw"""http://scala-lang.org/files/archive/api/$v/index.html"""))
