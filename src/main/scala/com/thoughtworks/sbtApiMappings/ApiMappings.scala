@@ -37,7 +37,7 @@ object ApiMappings extends AutoPlugin {
         fullyFile = jar.data
         urlOption = fullyFile.getCanonicalPath match {
           case ScalaLibraryRegex(v) => {
-            Some(url(raw"""http://scala-lang.org/api/$v/"""))
+            Some(url(raw"""http://scala-lang.org/files/archive/api/$v/index.html"""))
           }
           case PlayRegex(_, _, version) => {
             Some(url(raw"""https://playframework.com/documentation/$version/api/scala/index.html"""))
