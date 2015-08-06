@@ -35,9 +35,9 @@ object ApiMappings extends AutoPlugin {
       val dependencyClasspathFiles = (for {
         jar <- (dependencyClasspath in Compile).value ++ (dependencyClasspath in Compile).value
       } yield jar.data)(collection.breakOut(Set.canBuildFrom))
-      val jarFiles = dependencyClasspathFiles ++ scalaInstance.value
+      val jarFiles = dependencyClasspathFiles ++ scalaInstance.value.jars
       (for {
-        fullyFile = jarFiles
+        fullyFile <- jarFiles
         urlOption = fullyFile.getCanonicalPath match {
           case ScalaLibraryRegex(v) => {
             Some(url(raw"""http://scala-lang.org/files/archive/api/$v/index.html"""))
