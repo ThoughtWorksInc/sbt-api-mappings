@@ -33,7 +33,7 @@ This plugin resolves the problem.
 addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings" % "0.2.1")
 ```
 
-#### Step 2: Relead the Sbt configuration:
+#### Step 2: Reload the Sbt configuration:
 
 ```
 > reload
