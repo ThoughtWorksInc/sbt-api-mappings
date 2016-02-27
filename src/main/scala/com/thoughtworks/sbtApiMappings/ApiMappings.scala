@@ -50,7 +50,8 @@ object ApiMappings extends AutoPlugin {
             Some(url(raw"""http://scala-lang.org/files/archive/api/$v/index.html"""))
           }
           case PlayRegex(_, _, version) => {
-            Some(url(raw"""https://playframework.com/documentation/$version/api/scala/index.html"""))
+            val wildcardVersion = version.replaceAll("[\\d]$", "x")
+            Some(url(raw"""https://playframework.com/documentation/$wildcardVersion/api/scala/index.html"""))
           }
           case IvyRegex(organization, name, jarBaseFile) if jarBaseFile.startsWith(s"$name-") => {
             val version = jarBaseFile.substring(name.length + 1, jarBaseFile.length)
