@@ -7,20 +7,6 @@ organization := "com.thoughtworks.sbt-api-mappings"
 releasePublishArtifactsAction := PgpKeys.publishSigned.value
 
 import ReleaseTransformations._
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runClean,
-  runTest,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  publishArtifacts,
-  setNextVersion,
-  commitNextVersion,
-  releaseStepCommand("sonatypeRelease"),
-  pushChanges
-)
 
 description := "A Sbt plugin that fills apiMappings for common Scala libraries."
 
@@ -47,3 +33,10 @@ pomExtra :=
 
 scalacOptions += "-deprecation"
 
+releaseProcess := {
+  releaseProcess.value.patch(releaseProcess.value.indexOf(pushChanges), Seq[ReleaseStep](releaseStepCommand("sonatypeRelease")), 0)
+}
+
+releaseProcess -= runClean
+
+releaseProcess -= runTest
