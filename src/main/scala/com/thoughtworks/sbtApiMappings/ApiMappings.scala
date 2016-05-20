@@ -54,7 +54,12 @@ object ApiMappings extends AutoPlugin {
           }
           case IvyRegex(organization, name, jarBaseFile) if jarBaseFile.startsWith(s"$name-") => {
             val version = jarBaseFile.substring(name.length + 1, jarBaseFile.length)
-            Some(url(raw"""https://oss.sonatype.org/service/local/repositories/public/archive/${organization.replace('.', '/')}/$name/$version/$jarBaseFile-javadoc.jar/!/index.html"""))
+            organization match {
+              case "org.apache.spark" =>
+                Some(url(raw"""https://spark.apache.org/docs/$version/api/scala/index.html"""))
+              case _ =>
+                Some(url(raw"""https://oss.sonatype.org/service/local/repositories/public/archive/${organization.replace('.', '/')}/$name/$version/$jarBaseFile-javadoc.jar/!/index.html"""))
+            }
           }
           case _ => {
             None
