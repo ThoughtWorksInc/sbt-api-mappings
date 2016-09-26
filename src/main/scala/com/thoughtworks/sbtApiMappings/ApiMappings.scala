@@ -21,7 +21,7 @@ import Keys._
 
 object ApiMappings extends AutoPlugin {
 
-  private val ScalaInstanceLibraryRegex = """^(.+)\.jar$""".r
+  private val ScalaInstanceLibraryRegex = """^([\w\-]+)(?:_[\d\.]+)?(?:\-[\d\.]+)?\.jar$""".r 
 
   private val ScalaLibraryRegex = """^.*[/\\]scala-library-([\d\.]+)\.jar$""".r
 
