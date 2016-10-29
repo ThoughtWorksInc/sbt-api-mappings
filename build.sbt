@@ -46,8 +46,6 @@ libraryDependencies += "com.thoughtworks.extractor" %% "extractor" % "1.0.4"
 
 scriptedSettings
 
-scriptedLaunchOpts += s"-Dplugin.version=${version.value}"
-
 scriptedBufferLog := false
 
 test := scripted.toTask("").value
