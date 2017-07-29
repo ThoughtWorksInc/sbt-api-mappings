@@ -30,6 +30,8 @@ for ((config, exists) <- Seq((Test, true), (Compile, false))) yield {
   }
 }
 
+scalaVersion in Global := "2.12.3"
+
 crossScalaVersions := Seq("2.12.3")
 
 libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.13.4" % Test
