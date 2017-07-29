@@ -1,9 +1,5 @@
 enablePlugins(PlayScala)
 
-sparkVersion := "2.0.1"
-
-sparkComponents += "sql"
-
 def isDownloadableApiDocumentation(url: URL) = {
   import java.net.HttpURLConnection
   val connection = url.openConnection().asInstanceOf[HttpURLConnection]
@@ -34,8 +30,8 @@ for ((config, exists) <- Seq((Test, true), (Compile, false))) yield {
   }
 }
 
-crossScalaVersions := Seq("2.10.6", "2.11.11")
+crossScalaVersions := Seq("2.12.3")
 
-libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.13.3" % Test
+libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.13.4" % Test
 
 sources in Test += baseDirectory.value / "test_renamed" / "Test.scala"
