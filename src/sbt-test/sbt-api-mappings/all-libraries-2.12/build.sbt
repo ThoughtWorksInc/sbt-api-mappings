@@ -10,30 +10,29 @@ def isDownloadableApiDocumentation(url: URL) = {
   }
 }
 
-val check = TaskKey[Unit]("check")
-
-check := {
-  assert(isDownloadableApiDocumentation((apiMappings in Compile in doc).value(scalaInstance.value.libraryJar)))
-  assert(isDownloadableApiDocumentation((apiMappings in Test in doc).value(scalaInstance.value.libraryJar)))
+def assertDownloadableApiDocumentation(url: URL) = {
+  assert(isDownloadableApiDocumentation(url), s"Cannot open $url!")
 }
 
-for ((config, exists) <- Seq((Test, true), (Compile, false))) yield {
-  check := {
-    check.value
-    val scalacheckJarName = Artifact.artifactName(ScalaVersion(scalaVersion.value, scalaBinaryVersion.value),
-                                                  "org.scalacheck" %% "scalacheck" % "1.13.3",
-                                                  Artifact("scalacheck"))
-    assert((apiMappings in config in doc).value.exists {
-      case (file, url) =>
-        file.getName == scalacheckJarName && isDownloadableApiDocumentation(url)
-    } == exists)
-  }
+val check = TaskKey[Unit]("check")
+
+val scalacheckModuleId = "org.scalacheck" %% "scalacheck" % "1.13.4"
+check := {
+  assertDownloadableApiDocumentation((apiMappings in Compile in doc).value(scalaInstance.value.libraryJar))
+  assertDownloadableApiDocumentation((apiMappings in Test in doc).value(scalaInstance.value.libraryJar))
+
+  val scalacheckJarName = Artifact.artifactName(ScalaVersion(scalaVersion.value, scalaBinaryVersion.value),
+                                                scalacheckModuleId,
+                                                Artifact("scalacheck"))
+  val Some((_, url)) = (apiMappings in Test in doc).value.find(_._1.getName == scalacheckJarName)
+  assertDownloadableApiDocumentation(url)
+  assert(!(apiMappings in Compile in doc).value.exists(_._1.getName == scalacheckJarName))
 }
 
 scalaVersion in Global := "2.12.3"
 
 crossScalaVersions := Seq("2.12.3")
 
-libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.13.4" % Test
+libraryDependencies += scalacheckModuleId % Test
 
 sources in Test += baseDirectory.value / "test_renamed" / "Test.scala"
