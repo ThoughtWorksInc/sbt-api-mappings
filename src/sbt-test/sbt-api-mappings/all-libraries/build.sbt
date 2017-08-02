@@ -25,7 +25,7 @@ for ((config, exists) <- Seq((Test, true), (Compile, false))) yield {
   check := {
     check.value
     val scalacheckJarName = Artifact.artifactName(ScalaVersion(scalaVersion.value, scalaBinaryVersion.value),
-                                                  "org.scalacheck" %% "scalacheck" % "1.13.3",
+                                                  "org.scalacheck" %% "scalacheck" % "1.13.4",
                                                   Artifact("scalacheck"))
     assert((apiMappings in config in doc).value.exists {
       case (file, url) =>
@@ -36,6 +36,6 @@ for ((config, exists) <- Seq((Test, true), (Compile, false))) yield {
 
 crossScalaVersions := Seq("2.10.6", "2.11.11")
 
-libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.13.3" % Test
+libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.13.4" % Test
 
 sources in Test += baseDirectory.value / "test_renamed" / "Test.scala"
