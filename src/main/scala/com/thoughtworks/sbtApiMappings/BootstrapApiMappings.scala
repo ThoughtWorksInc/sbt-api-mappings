@@ -8,7 +8,7 @@ import sbt._
 import sbt.Keys._
 import sbt.plugins.JvmPlugin
 
-/** Api mappings for classpath used by bootstrap class loader.
+/** API mappings for classpath used by the bootstrap class loader.
   * @author 杨博 (Yang Bo)
   */
 object BootstrapApiMappings extends AutoPlugin {
