@@ -35,10 +35,11 @@ object BootstrapApiMappings extends AutoPlugin {
       inTask(doc) {
         Seq(
           apiMappings ++= {
+            val url = bootstrapJavadocURL.value
             ManagementFactory.getRuntimeMXBean.getBootClassPath
               .split(File.pathSeparatorChar)
               .map { jar =>
-                new File(jar) -> bootstrapJavadocURL.value
+                new File(jar) -> url
               }(collection.breakOut(Map.canBuildFrom))
           }
         )

@@ -1,5 +1,3 @@
-enablePlugins(PlayScala)
-
 def isDownloadableApiDocumentation(url: URL) = {
   import java.net.HttpURLConnection
   val connection = url.openConnection().asInstanceOf[HttpURLConnection]

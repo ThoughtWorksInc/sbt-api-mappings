@@ -1,5 +1,5 @@
-> +show compile:doc::api-mappings
-> +show test:doc::api-mappings
+> +compile:doc::apiMappings
+> +test:doc::apiMappings
 
 > check
 > +check

@@ -1,5 +1,6 @@
 package com.thoughtworks.sbtApiMappings
 
+import com.thoughtworks.Extractor._
 import sbt._
 
 /**
@@ -13,8 +14,12 @@ object PlayApiMappingRule extends AutoPlugin {
 
   override def trigger = allRequirements
 
+  private def moduleID: ModuleID => (String, String, String) = { moduleID =>
+    (moduleID.organization, moduleID.name, moduleID.revision)
+  }
+
   private def playRule: PartialFunction[ModuleID, URL] = {
-    case ModuleID("com.typesafe.play", libraryName, VersionNumber(Seq(majorVersion, minorVersion, _ *), _, _), _, _, _, _, _, _, _, _)
+    case moduleID.extract("com.typesafe.play", libraryName, VersionNumber(Seq(majorVersion, minorVersion, _*), _, _))
         if libraryName == "play" || libraryName.startsWith("play-") =>
       url(s"https://playframework.com/documentation/$majorVersion.$minorVersion.x/api/scala/index.html")
   }
