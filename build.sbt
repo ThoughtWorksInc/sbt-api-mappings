@@ -14,16 +14,6 @@ homepage := Some(url(raw"""https://github.com/ThoughtWorksInc/${name.value}"""))
 
 startYear := Some(2015)
 
-pomExtra :=
-  <developers>
-    <developer>
-      <id>Atry</id>
-      <name>杨博</name>
-      <timezone>+8</timezone>
-      <email>pop.atry@gmail.com</email>
-    </developer>
-  </developers>
-
 scalacOptions += "-deprecation"
 
 libraryDependencies += "com.thoughtworks.extractor" %% "extractor" % "2.1.0"
