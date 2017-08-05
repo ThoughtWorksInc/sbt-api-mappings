@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ThoughtWorksInc/sbt-api-mappings.svg?branch=master)](https://travis-ci.org/ThoughtWorksInc/sbt-api-mappings)
 
-**sbt-api-mappings** is a Sbt plugin that fills `apiMappings` for common Scala libraries.
+**sbt-api-mappings** is a sbt plugin that fills `apiMappings` for common Scala libraries.
 
 ## Motivation
 
@@ -32,6 +32,8 @@ This plugin resolves the problem.
 ``` sbt
 addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings" % "latest.release")
 ```
+
+Note that sbt-api-mappings 1.x requires sbt 0.13.x, sbt-api-mappings 2.x requires sbt 1.x.
 
 #### Step 2: Reload the Sbt configuration:
 
