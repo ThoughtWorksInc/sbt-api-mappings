@@ -18,6 +18,8 @@ scalacOptions += "-deprecation"
 
 libraryDependencies += "com.thoughtworks.extractor" %% "extractor" % "2.1.0"
 
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
+
 scriptedSettings
 
 scriptedBufferLog := false
