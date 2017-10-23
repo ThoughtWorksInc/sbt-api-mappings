@@ -9,6 +9,7 @@ language: scala
 
 jdk:
   - oraclejdk8
+  - oraclejdk9
 
 before_cache:
   - find $HOME/.sbt -name '*.lock' -delete
@@ -26,3 +27,4 @@ deploy:
   on:
     condition: -e ./deploy.sbt
     all_branches: true
+    jdk: oraclejdk8
