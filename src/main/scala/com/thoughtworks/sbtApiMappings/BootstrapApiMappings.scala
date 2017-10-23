@@ -37,11 +37,18 @@ object BootstrapApiMappings extends AutoPlugin {
         Seq(
           apiMappings ++= {
             val url = bootstrapJavadocURL.value
-            ManagementFactory.getRuntimeMXBean.getBootClassPath
-              .split(File.pathSeparatorChar)
-              .map { jar =>
-                new File(jar) -> url
-              }(collection.breakOut(Map.canBuildFrom))
+            val log = streams.value.log
+
+            if (!ManagementFactory.getRuntimeMXBean.isBootClassPathSupported) {
+              log.info("sbt-api-mappings: boot class path not supported, not adding it to apiMappings")
+              Map.empty
+            } else {
+              ManagementFactory.getRuntimeMXBean.getBootClassPath
+                .split(File.pathSeparatorChar)
+                .map { jar =>
+                  new File(jar) -> url
+                }(collection.breakOut(Map.canBuildFrom))
+            }
           }
         )
       }
