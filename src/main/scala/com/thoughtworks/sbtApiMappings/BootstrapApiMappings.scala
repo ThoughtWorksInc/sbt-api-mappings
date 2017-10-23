@@ -28,7 +28,7 @@ object BootstrapApiMappings extends AutoPlugin {
   )
 
   private[sbtApiMappings] val defaultBootstrapJavadocUrl = {
-    val javaVersion = sys.props("java.version")
+    val javaVersion = sys.props("java.version").split('-')(0)
     new URL(raw"""https://docs.oracle.com/javase/$javaVersion/docs/api/index.html""")
   }
 
