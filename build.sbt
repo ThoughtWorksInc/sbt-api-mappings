@@ -1,3 +1,5 @@
+disablePlugins(BootstrapApiMappings)
+
 sbtPlugin := true
 
 name := "sbt-api-mappings"
