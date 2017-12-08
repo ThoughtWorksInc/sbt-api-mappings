@@ -23,14 +23,19 @@ object BootstrapApiMappings extends AutoPlugin {
 
   import autoImport._
 
+  private[sbtApiMappings] def defaultBootstrapJavadocUrl = {
+    val javaVersion = sys.props("java.specification.version") match {
+      case VersionNumber(Seq(1L, minorVersion, _*), _, _) =>
+        minorVersion
+      case specificationVersion =>
+        specificationVersion
+    }
+    new URL(raw"""https://docs.oracle.com/javase/$javaVersion/docs/api/index.html""")
+  }
+
   override def globalSettings: Seq[Def.Setting[_]] = Seq(
     bootstrapJavadocURL := defaultBootstrapJavadocUrl
   )
-
-  private[sbtApiMappings] val defaultBootstrapJavadocUrl = {
-    val javaVersion = sys.props("java.version").split('-')(0)
-    new URL(raw"""https://docs.oracle.com/javase/$javaVersion/docs/api/index.html""")
-  }
 
   override def projectSettings = Seq(Compile, Test).flatMap { config =>
     inConfig(config) {
