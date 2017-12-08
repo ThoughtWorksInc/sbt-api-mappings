@@ -31,7 +31,7 @@ object BootstrapApiMappings extends AutoPlugin {
     val javaVersion = sys.props("java.specification.version")	match {
       case VersionNumber(Seq(1L, javaVersion, _*), _, _) =>
         javaVersion
-      case VersionNumber(Seq(javaVersion, _*), _, _) =>
+      case javaVersion =>
         javaVersion
     }
     new URL(raw"""https://docs.oracle.com/javase/$javaVersion/docs/api/index.html""")
