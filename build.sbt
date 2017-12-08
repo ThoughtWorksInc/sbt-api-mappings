@@ -1,9 +1,5 @@
 sbtPlugin := true
 
-scalaVersion := "2.12.3"
-
-sbtVersion in pluginCrossBuild := "1.0.0-RC3"
-
 name := "sbt-api-mappings"
 
 organization := "com.thoughtworks.sbt-api-mappings"
@@ -17,8 +13,6 @@ startYear := Some(2015)
 scalacOptions += "-deprecation"
 
 libraryDependencies += "com.thoughtworks.extractor" %% "extractor" % "2.1.0"
-
-scriptedSettings
 
 scriptedBufferLog := false
 
