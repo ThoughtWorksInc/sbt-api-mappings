@@ -7,9 +7,6 @@ addons:
 
 language: scala
 
-scala:
-  - 2.10.7
-
 jdk:
   - oraclejdk8
   - oraclejdk9
