@@ -1,0 +1,7 @@
+> 'set scalacOptions in (Compile, doc) += "-Xfatal-warnings"'
+> 'set crossPaths := false'
+> check
+> doc
+$ exists target/api/index.html
+$ exists target/api/A.html
+> jgrep "https://docs.oracle.com/javase/\d+/docs/api/java/lang/Throwable.html" "target/api/A.html"
