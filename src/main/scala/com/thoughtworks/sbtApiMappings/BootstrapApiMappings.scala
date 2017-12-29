@@ -25,12 +25,12 @@ object BootstrapApiMappings extends AutoPlugin {
 
   private[sbtApiMappings] def defaultBootstrapJavadocUrl = {
     val javaVersion = sys.props("java.specification.version") match {
-      case VersionNumber(Seq(1L, minorVersion, _*), _, _) =>
-        minorVersion
+      case VersionNumber(Seq(1, javaVersion, _*), _, _) => javaVersion // 1.6-1.8
+      case VersionNumber(Seq(javaVersion, _*),    _, _) => javaVersion // 9+
       case specificationVersion =>
         specificationVersion
     }
-    new URL(raw"""https://docs.oracle.com/javase/$javaVersion/docs/api/index.html""")
+    url(s"https://docs.oracle.com/javase/${javaVersion}/docs/api/index.html")
   }
 
   override def globalSettings: Seq[Def.Setting[_]] = Seq(
@@ -46,7 +46,8 @@ object BootstrapApiMappings extends AutoPlugin {
             val log = streams.value.log
 
             if (!ManagementFactory.getRuntimeMXBean.isBootClassPathSupported) {
-              log.info("sbt-api-mappings: boot class path not supported, not adding it to apiMappings")
+              // FIXME: Java 9 now uses modules and urls rather than jars and files.
+              log.warn("sbt-api-mappings: bootstrap class path is not supported, unable to add JavaDoc for JavaSE to apiMappings")
               Map.empty
             } else {
               ManagementFactory.getRuntimeMXBean.getBootClassPath
