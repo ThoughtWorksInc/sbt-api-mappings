@@ -4,6 +4,13 @@ def regexMatches(matcher: scala.util.matching.Regex)(str: String): Boolean = {
   matcher.findFirstIn(str).isDefined
 }
 
+def javaVersion = VersionNumber(sys.props("java.specification.version"))
+
+def isJava9 = javaVersion match {
+  case VersionNumber(Seq(9, _*), _, _) => true
+  case _                               => false
+}
+
 check := {
 
   val log = sLog.value
@@ -16,7 +23,10 @@ check := {
     regexMatches(expect)(url.toString)
   }
 
-  if (found) {
+  if (isJava9) {
+    log.warn("Skipping check task")
+
+  } else if (found) {
     log.info("Found javadoc url in apiMappings")
 
   } else {
@@ -37,7 +47,10 @@ fgrep := {
 
   val found = IO.readLines(file(args(1))).exists(_.contains(args(0)))
 
-  if (found) {
+  if (isJava9) {
+    log.warn("Skipping check task")
+
+  } else if (found) {
     log.info(s"Found '${args(0)}' in '${args(1)}'")
 
   } else {
@@ -54,7 +67,10 @@ jgrep := {
 
   val found = IO.readLines(file(args(1))).exists(regexMatches(args(0).r)(_))
 
-  if (found) {
+  if (isJava9) {
+    log.warn("Skipping jgrep task")
+
+  } else if (found) {
     log.info(s"Found '${args(0)}' in '${args(1)}'")
 
   } else {
