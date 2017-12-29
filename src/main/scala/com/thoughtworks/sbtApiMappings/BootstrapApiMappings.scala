@@ -47,7 +47,7 @@ object BootstrapApiMappings extends AutoPlugin {
 
             if (!ManagementFactory.getRuntimeMXBean.isBootClassPathSupported) {
               // FIXME: Java 9 now uses modules and urls rather than jars and files.
-              log.warn("sbt-api-mappings: boot class path not supported, unable to add JCL to apiMappings")
+              log.warn("sbt-api-mappings: bootstrap class path is not supported, unable to add JavaDoc for JavaSE to apiMappings")
               Map.empty
             } else {
               ManagementFactory.getRuntimeMXBean.getBootClassPath
