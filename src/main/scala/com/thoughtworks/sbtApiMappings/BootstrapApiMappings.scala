@@ -46,9 +46,8 @@ object BootstrapApiMappings extends AutoPlugin {
             val log = streams.value.log
 
             if (!ManagementFactory.getRuntimeMXBean.isBootClassPathSupported) {
-              // FIXME: Java 9 now uses modules and urls rather than jars and files.
-              log.warn("sbt-api-mappings: bootstrap class path is not supported, unable to add JavaDoc for JavaSE to apiMappings")
-              Map.empty
+              // Copied from scala-js/project/Build.scala for Java 9
+              Map(file("/modules/java.base") -> bootstrapJavadocURL.value)
             } else {
               ManagementFactory.getRuntimeMXBean.getBootClassPath
                 .split(File.pathSeparatorChar)
