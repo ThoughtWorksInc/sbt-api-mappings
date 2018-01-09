@@ -23,10 +23,7 @@ check := {
     regexMatches(expect)(url.toString)
   }
 
-  if (isJava9) {
-    log.warn("Skipping check task")
-
-  } else if (found) {
+  if (found) {
     log.info("Found javadoc url in apiMappings")
 
   } else {
@@ -47,10 +44,7 @@ fgrep := {
 
   val found = IO.readLines(file(args(1))).exists(_.contains(args(0)))
 
-  if (isJava9) {
-    log.warn("Skipping check task")
-
-  } else if (found) {
+  if (found) {
     log.info(s"Found '${args(0)}' in '${args(1)}'")
 
   } else {
@@ -67,10 +61,7 @@ jgrep := {
 
   val found = IO.readLines(file(args(1))).exists(regexMatches(args(0).r)(_))
 
-  if (isJava9) {
-    log.warn("Skipping jgrep task")
-
-  } else if (found) {
+  if (found) {
     log.info(s"Found '${args(0)}' in '${args(1)}'")
 
   } else {

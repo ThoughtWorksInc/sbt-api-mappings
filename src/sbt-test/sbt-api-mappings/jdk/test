@@ -1,6 +1,5 @@
+> 'set scalacOptions in (Compile, doc) += "-Xfatal-warnings"'
 > 'set crossPaths := false'
-## FIXME: In Java 9, refs aren't possible yet.
-#> 'set scalacOptions in (Compile, doc) += "-Xfatal-warnings"'
 > check
 > doc
 $ exists target/api/index.html
