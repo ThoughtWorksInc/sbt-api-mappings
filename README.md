@@ -17,7 +17,7 @@ For example:
 class MyClass(optionMonad: scalaz.Monad[Option])
 ```
 
-Unfortunately when use run `doc` command in Sbt, you will receive a warning and the link would not be created.
+Unfortunately when running `doc` command in Sbt, you will receive a warning and the link would not be created.
 
 ```
 /path/to/MyClass.scala:3: Could not find any member to link for "scala.Option".
