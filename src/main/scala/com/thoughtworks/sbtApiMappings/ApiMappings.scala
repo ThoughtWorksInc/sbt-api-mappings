@@ -48,7 +48,7 @@ object ApiMappings extends AutoPlugin {
             }
             val rules = apiMappingRules.value
             dependencyClasspath.value.collect {
-              case jar @ getModuleID.extract(rules.extract(url)) =>
+              case jar @ getModuleID.extract(rules.extract(url)) if !apiMappings.value.exists(_._1 == jar.data) =>
                 jar.data -> url
             }(collection.breakOut(Map.canBuildFrom))
           }
