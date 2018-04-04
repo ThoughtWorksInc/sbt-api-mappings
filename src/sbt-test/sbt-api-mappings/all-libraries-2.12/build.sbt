@@ -1,15 +1,12 @@
-def isDownloadableApiDocumentation(url: URL) = {
+def assertDownloadableApiDocumentation(url: URL) = {
   import java.net.HttpURLConnection
   val connection = url.openConnection().asInstanceOf[HttpURLConnection]
   try {
-    connection.getResponseCode == 200
+    assert((200 to 399).contains(connection.getResponseCode),
+           s"Unexpected HTTP response code ${connection.getResponseCode} when fetching $url")
   } finally {
     connection.disconnect()
   }
-}
-
-def assertDownloadableApiDocumentation(url: URL) = {
-  assert(isDownloadableApiDocumentation(url), s"Cannot open $url!")
 }
 
 val check = TaskKey[Unit]("check")
@@ -23,7 +20,10 @@ check := {
                                                 scalacheckModuleId,
                                                 Artifact("scalacheck"))
   val Some((_, url)) = (apiMappings in Test in doc).value.find(_._1.getName == scalacheckJarName)
-  assertDownloadableApiDocumentation(url)
+
+  // The expected URL is browsable but not accessible from java.net.HttpURLConnection
+  val expectedUrl = "https://javadoc.io/page/org.scalacheck/scalacheck_2.12/1.13.4/index.html"
+  assert(url.toString == expectedUrl)
   assert(!(apiMappings in Compile in doc).value.exists(_._1.getName == scalacheckJarName))
 }
 
