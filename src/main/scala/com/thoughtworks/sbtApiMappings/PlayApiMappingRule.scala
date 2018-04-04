@@ -14,11 +14,11 @@ object PlayApiMappingRule extends AutoPlugin {
 
   override def trigger = allRequirements
 
-  private def moduleID: ModuleID => (String, String, String) = { moduleID =>
+  private def moduleID: Attributed[File] => Option[(String, String, String)] = _.get(Keys.moduleID.key).map { moduleID =>
     (moduleID.organization, moduleID.name, moduleID.revision)
   }
 
-  private def playRule: PartialFunction[ModuleID, URL] = {
+  private def playRule: PartialFunction[Attributed[File], URL] = {
     case moduleID.extract("com.typesafe.play", libraryName, VersionNumber(Seq(majorVersion, minorVersion, _*), _, _))
         if libraryName == "play" || libraryName.startsWith("play-") =>
       url(s"https://playframework.com/documentation/$majorVersion.$minorVersion.x/api/scala/index.html")

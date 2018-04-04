@@ -14,11 +14,11 @@ object SparkApiMappingRule extends AutoPlugin {
 
   override def trigger = allRequirements
 
-  private def moduleID: ModuleID => (String, String, String) = { moduleID =>
+  private def moduleID: Attributed[File] => Option[(String, String, String)] = _.get(Keys.moduleID.key).map { moduleID =>
     (moduleID.organization, moduleID.name, moduleID.revision)
   }
 
-  private def sparkRule: PartialFunction[ModuleID, URL] = {
+  private def sparkRule: PartialFunction[Attributed[File], URL] = {
     case moduleID.extract("org.apache.spark", _, revision) =>
       url(s"https://spark.apache.org/docs/$revision/api/scala/index.html")
   }

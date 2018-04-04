@@ -15,11 +15,11 @@ object ScalaApiMappingRule extends AutoPlugin {
 
   override def trigger = allRequirements
 
-  private def moduleID: ModuleID => (String, String, String) = { moduleID =>
+  private def moduleID: Attributed[File] => Option[(String, String, String)] = _.get(Keys.moduleID.key).map { moduleID =>
     (moduleID.organization, moduleID.name, moduleID.revision)
   }
 
-  private def scalaRule: PartialFunction[ModuleID, URL] = {
+  private def scalaRule: PartialFunction[Attributed[File], URL] = {
     case moduleID.extract("org.scala-lang", "scala-library", revision) =>
       url(s"http://scala-lang.org/files/archive/api/$revision/index.html")
     case moduleID.extract("org.scala-lang", libraryName, revision)
