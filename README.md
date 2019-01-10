@@ -25,9 +25,9 @@ Unfortunately when running `doc` command in Sbt, you will receive a warning and 
 
 This plugin resolves the problem.
 
-### Usage
+## Usage
 
-#### Step 1: Add the following lines in your `project/plugins.sbt`:
+### Step 1: Add the following lines in your `project/plugins.sbt`:
 
 ``` sbt
 addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings" % "latest.release")
@@ -35,13 +35,13 @@ addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings" % "latest.
 
 Note that sbt-api-mappings 1.x requires sbt 0.13.x, sbt-api-mappings 2.x requires sbt 1.x.
 
-#### Step 2: Reload the Sbt configuration:
+### Step 2: Reload the Sbt configuration:
 
 ```
 > reload
 ```
 
-#### Step 3: Generate your API documentation:
+### Step 3: Generate your API documentation:
 
 ```
 > doc
