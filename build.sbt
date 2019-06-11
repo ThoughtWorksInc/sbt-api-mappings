@@ -12,7 +12,7 @@ startYear := Some(2015)
 
 scalacOptions += "-deprecation"
 
-libraryDependencies += "com.thoughtworks.extractor" %% "extractor" % "2.1.1"
+libraryDependencies += "com.thoughtworks.extractor" %% "extractor" % "2.1.2"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 
