@@ -20,7 +20,7 @@ before_cache:
   - find $HOME/.ivy2 -name 'ivydata-*.properties' -delete
 
 script:
-  - sbt +test +scripted
+  - sbt +test
 
 cache:
   directories:
@@ -39,4 +39,4 @@ deploy:
     on:
       all_branches: true
       condition: $GITHUB_PERSONAL_ACCESS_TOKEN
-      jdk: oraclejdk8
+      jdk: openjdk8
