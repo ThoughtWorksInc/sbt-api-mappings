@@ -1,3 +1,5 @@
+enablePlugins(SbtPlugin)
+
 sbtPlugin := true
 
 name := "sbt-api-mappings"
@@ -17,5 +19,3 @@ libraryDependencies += "com.thoughtworks.extractor" %% "extractor" % "2.1.2"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 
 scriptedBufferLog := false
-
-test := scripted.toTask("").value

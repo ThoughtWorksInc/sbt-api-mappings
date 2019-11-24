@@ -7,9 +7,12 @@ addons:
 
 language: scala
 
+scala:
+  - 2.12.8
+
 jdk:
-  - oraclejdk8
-  - oraclejdk9
+  - openjdk8
+  - openjdk9
   - openjdk11
 
 before_cache:
@@ -17,15 +20,23 @@ before_cache:
   - find $HOME/.ivy2 -name 'ivydata-*.properties' -delete
 
 script:
-  - sbt +test
+  - sbt +test +scripted
+
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot/
+    - $HOME/.coursier/
+
+before_script:
 
 before_deploy:
 
 deploy:
-  skip_cleanup: true
-  provider: script
-  script: sbt "release with-defaults"
-  on:
-    condition: -e ./deploy.sbt
-    all_branches: true
-    jdk: oraclejdk8
+  - provider: script
+    script: sbt ++$TRAVIS_SCALA_VERSION "set every Seq(sonatypeSessionName := \"Travis Job $TRAVIS_JOB_NAME $TRAVIS_JOB_NUMBER ($TRAVIS_JOB_WEB_URL)\", publishTo := sonatypePublishToBundle.value)" publishSigned sonatypeBundleRelease
+    skip_cleanup: true
+    on:
+      all_branches: true
+      condition: $GITHUB_PERSONAL_ACCESS_TOKEN
+      jdk: oraclejdk8
