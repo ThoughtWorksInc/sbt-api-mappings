@@ -19,3 +19,8 @@ libraryDependencies += "com.thoughtworks.extractor" %% "extractor" % "2.1.2"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 
 scriptedBufferLog := false
+
+(Test / test) := {
+  (Test / test).value
+  scripted.toTask("").value
+}
