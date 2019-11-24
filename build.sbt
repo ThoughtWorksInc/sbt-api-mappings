@@ -20,6 +20,8 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 
 scriptedBufferLog := false
 
+scriptedLaunchOpts += s"-Dplugin.version=${version.value}"
+
 (Test / test) := {
   (Test / test).value
   scripted.toTask("").value
