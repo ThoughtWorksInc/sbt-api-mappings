@@ -1,9 +1,10 @@
 package com.thoughtworks.sbtApiMappings
 
 import scala.io.Source
-import org.scalatest.{ WordSpec, Matchers }
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class BootstrapApiMappingsSpec extends WordSpec with Matchers {
+class BootstrapApiMappingsSpec extends AnyWordSpec with Matchers {
   "BootstrapSbtApiMappings" should {
     "provide a working default bootstrapJavadocURL" in {
       val src = Source.fromURL(BootstrapApiMappings.defaultBootstrapJavadocUrl)
