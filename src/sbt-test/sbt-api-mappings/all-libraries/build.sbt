@@ -11,7 +11,7 @@ def assertDownloadableApiDocumentation(url: URL) = {
 
 val check = TaskKey[Unit]("check")
 
-val scalacheckModuleId = "org.scalacheck" %% "scalacheck" % "1.13.4"
+val scalacheckModuleId = "org.scalacheck" %% "scalacheck" % "1.14.3"
 check := {
   assertDownloadableApiDocumentation((apiMappings in Compile in doc).value(scalaInstance.value.libraryJar))
   assertDownloadableApiDocumentation((apiMappings in Test in doc).value(scalaInstance.value.libraryJar))
@@ -22,14 +22,14 @@ check := {
   val Some((_, url)) = (apiMappings in Test in doc).value.find(_._1.getName == scalacheckJarName)
 
   // The expected URL is browsable but not accessible from java.net.HttpURLConnection
-  val expectedUrl = "https://javadoc.io/page/org.scalacheck/scalacheck_2.12/1.13.4/index.html"
+  val expectedUrl = "https://javadoc.io/page/org.scalacheck/scalacheck_2.13/1.14.3/index.html"
   assert(url.toString == expectedUrl)
   assert(!(apiMappings in Compile in doc).value.exists(_._1.getName == scalacheckJarName))
 }
 
-scalaVersion in Global := "2.12.3"
+scalaVersion in Global := "2.13.1"
 
-crossScalaVersions := Seq("2.12.3")
+crossScalaVersions := Seq("2.13.1")
 
 libraryDependencies += scalacheckModuleId % Test
 
