@@ -4,9 +4,9 @@ def regexMatches(matcher: scala.util.matching.Regex)(str: String): Boolean = {
   matcher.findFirstIn(str).isDefined
 }
 
-scalaVersion in Global := "2.12.10"
+scalaVersion in Global := "2.12.13"
 
-crossScalaVersions := Seq("2.12.10", "2.13.0-M5") // Broken in 2.13.0-RC1
+crossScalaVersions := Seq("2.12.13", "2.13.0-M5") // Broken in 2.13.0-RC1
 
 def javaVersion = VersionNumber(sys.props("java.specification.version"))
 
