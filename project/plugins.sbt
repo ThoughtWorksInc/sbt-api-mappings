@@ -2,7 +2,7 @@ libraryDependencies += "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value
 
 addSbtPlugin("com.thoughtworks.sbt-best-practice" % "sbt-best-practice" % "7.2.0")
 
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.8.1")
+addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.6")
 
 addSbtPlugin("com.dwijnand" % "sbt-dynver" % "4.0.0")
 
