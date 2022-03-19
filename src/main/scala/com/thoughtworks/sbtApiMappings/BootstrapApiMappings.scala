@@ -30,9 +30,9 @@ object BootstrapApiMappings extends AutoPlugin {
       case _ =>                                            8
     }
     if (javaVersion >= 11) {
-      url(s"https://docs.oracle.com/en/java/javase/${javaVersion}/docs/api/index.html")
+      url(s"https://docs.oracle.com/en/java/javase/${javaVersion}/docs/api/")
     } else {
-      url(s"https://docs.oracle.com/javase/${javaVersion}/docs/api/index.html")
+      url(s"https://docs.oracle.com/javase/${javaVersion}/docs/api/")
     }
   }
 

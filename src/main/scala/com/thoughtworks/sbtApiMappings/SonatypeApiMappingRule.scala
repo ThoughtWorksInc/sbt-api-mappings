@@ -31,7 +31,7 @@ object SonatypeApiMappingRule extends AutoPlugin {
     case nonSbtModuleID.extract(baseName, organization, libraryName, revision) =>
       val organizationPath = organization.replace('.', '/')
       url(
-        s"https://oss.sonatype.org/service/local/repositories/public/archive/$organizationPath/$libraryName/$revision/$baseName-javadoc.jar/!/index.html")
+        s"https://oss.sonatype.org/service/local/repositories/public/archive/$organizationPath/$libraryName/$revision/$baseName-javadoc.jar/!/")
   }
 
   override def projectSettings = {

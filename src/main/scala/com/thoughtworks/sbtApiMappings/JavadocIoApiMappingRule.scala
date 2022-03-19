@@ -22,7 +22,7 @@ object JavadocIoApiMappingRule extends AutoPlugin {
   private def javadocIoRule: PartialFunction[Attributed[File], URL] = {
     case nonSbtModuleID.extract(organization, libraryName, revision) =>
       val organizationPath = organization.replace('.', '/')
-      url(s"https://javadoc.io/page/$organization/$libraryName/$revision/index.html")
+      url(s"https://javadoc.io/page/$organization/$libraryName/$revision/")
   }
 
   override def projectSettings = {

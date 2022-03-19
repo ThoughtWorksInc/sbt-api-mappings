@@ -21,11 +21,11 @@ object ScalaApiMappingRule extends AutoPlugin {
 
   private def scalaRule: PartialFunction[Attributed[File], URL] = {
     case moduleID.extract("org.scala-lang", "scala-library", revision) =>
-      url(s"http://scala-lang.org/files/archive/api/$revision/index.html")
+      url(s"http://scala-lang.org/files/archive/api/$revision/")
     case moduleID.extract("org.scala-lang", libraryName, revision)
         // Scala web-site only contains API documentation for specific libraries after version 2.11.0
         if libraryName.startsWith("scala-") && VersionNumber(revision).numbers >= Seq(2, 11, 0) =>
-      url(s"http://scala-lang.org/files/archive/api/$revision/$libraryName/index.html")
+      url(s"http://scala-lang.org/files/archive/api/$revision/$libraryName/")
 
   }
 
