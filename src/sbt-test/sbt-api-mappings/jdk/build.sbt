@@ -21,7 +21,7 @@ check := {
 
   val compileApiMappings = (apiMappings in Compile in doc).value
 
-  val expect = "https://docs.oracle.com/(?:en/java/)?javase/\\d+/docs/api/index.html".r
+  val expect = "https://docs.oracle.com/(?:en/java/)?javase/\\d+/docs/api/".r
 
   val found = compileApiMappings.values.exists { url =>
     regexMatches(expect)(url.toString)

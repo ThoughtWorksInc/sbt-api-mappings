@@ -20,7 +20,7 @@ object SparkApiMappingRule extends AutoPlugin {
 
   private def sparkRule: PartialFunction[Attributed[File], URL] = {
     case moduleID.extract("org.apache.spark", _, revision) =>
-      url(s"https://spark.apache.org/docs/$revision/api/scala/index.html")
+      url(s"https://spark.apache.org/docs/$revision/api/scala/")
   }
 
   override def projectSettings = {

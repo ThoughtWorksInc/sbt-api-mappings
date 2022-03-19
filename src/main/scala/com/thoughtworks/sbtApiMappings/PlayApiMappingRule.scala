@@ -21,7 +21,7 @@ object PlayApiMappingRule extends AutoPlugin {
   private def playRule: PartialFunction[Attributed[File], URL] = {
     case moduleID.extract("com.typesafe.play", libraryName, VersionNumber(Seq(majorVersion, minorVersion, _*), _, _))
         if libraryName == "play" || libraryName.startsWith("play-") =>
-      url(s"https://playframework.com/documentation/$majorVersion.$minorVersion.x/api/scala/index.html")
+      url(s"https://playframework.com/documentation/$majorVersion.$minorVersion.x/api/scala/")
   }
 
   override def projectSettings = {
