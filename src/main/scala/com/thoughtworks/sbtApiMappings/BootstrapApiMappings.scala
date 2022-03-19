@@ -30,7 +30,9 @@ object BootstrapApiMappings extends AutoPlugin {
       case _ =>                                            8
     }
     if (javaVersion >= 11) {
-      url(s"https://docs.oracle.com/en/java/javase/${javaVersion}/docs/api/")
+      url(
+        s"https://docs.oracle.com/en/java/javase/${javaVersion}/docs/api/java.base/"
+      )
     } else {
       url(s"https://docs.oracle.com/javase/${javaVersion}/docs/api/")
     }
@@ -50,7 +52,7 @@ object BootstrapApiMappings extends AutoPlugin {
 
             if (!ManagementFactory.getRuntimeMXBean.isBootClassPathSupported) {
               // Copied from scala-js/project/Build.scala for Java 9 or later
-              Map(file("/modules/java.base") -> bootstrapJavadocURL.value)
+              Map(file("/modules/java.base") -> url)
             } else {
               ManagementFactory.getRuntimeMXBean.getBootClassPath
                 .split(File.pathSeparatorChar)
