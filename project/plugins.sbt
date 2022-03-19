@@ -6,7 +6,7 @@ addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.12")
 
 addSbtPlugin("com.dwijnand" % "sbt-dynver" % "4.0.0")
 
-addSbtPlugin("com.jsuereth" % "sbt-pgp" % "2.0.1")
+addSbtPlugin("com.jsuereth" % "sbt-pgp" % "2.0.2")
 
 addSbtPlugin("org.lyranthe.sbt" % "partial-unification" % "1.1.2")
 
