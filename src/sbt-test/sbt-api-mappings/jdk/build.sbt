@@ -6,7 +6,7 @@ def regexMatches(matcher: scala.util.matching.Regex)(str: String): Boolean = {
 
 scalaVersion in Global := "2.12.10"
 
-crossScalaVersions := Seq("2.12.10", "2.13.0-M5") // Broken in 2.13.0-RC1
+crossScalaVersions := Seq("2.12.10", "2.13.8")
 
 def javaVersion = VersionNumber(sys.props("java.specification.version"))
 
