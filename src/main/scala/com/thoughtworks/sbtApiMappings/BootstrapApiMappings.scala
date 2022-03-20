@@ -9,7 +9,8 @@ import sbt.Keys._
 import sbt.plugins.JvmPlugin
 
 /** API mappings for classpath used by the bootstrap class loader.
-  * @author 杨博 (Yang Bo)
+  * @author
+  *   杨博 (Yang Bo)
   */
 object BootstrapApiMappings extends AutoPlugin {
   override def requires: Plugins = JvmPlugin
@@ -18,16 +19,20 @@ object BootstrapApiMappings extends AutoPlugin {
 
   object autoImport {
     val bootstrapJavadocURL =
-      SettingKey[URL]("bootstrap-javadoc-url", "Javadoc URL for classpath used by bootstrap class loader")
+      SettingKey[URL](
+        "bootstrap-javadoc-url",
+        "Javadoc URL for classpath used by bootstrap class loader"
+      )
   }
 
   import autoImport._
 
   private[sbtApiMappings] def defaultBootstrapJavadocUrl = {
     val javaVersion = sys.props("java.specification.version") match {
-      case VersionNumber(Seq(1, javaVersion, _*), _, _) => javaVersion // 1.6-1.8
-      case VersionNumber(Seq(javaVersion, _*),    _, _) => javaVersion // 9+
-      case _ =>                                            8
+      case VersionNumber(Seq(1, javaVersion, _*), _, _) =>
+        javaVersion // 1.6-1.8
+      case VersionNumber(Seq(javaVersion, _*), _, _) => javaVersion // 9+
+      case _                                         => 8
     }
     if (javaVersion >= 11) {
       url(

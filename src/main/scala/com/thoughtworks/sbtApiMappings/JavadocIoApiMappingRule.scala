@@ -12,10 +12,13 @@ object JavadocIoApiMappingRule extends AutoPlugin {
 
   override def trigger = allRequirements
 
-  private def nonSbtModuleID: Attributed[File] => Option[(String, String, String)] = { jar =>
+  private def nonSbtModuleID
+      : Attributed[File] => Option[(String, String, String)] = { jar =>
     for {
       moduleID <- jar.get(Keys.moduleID.key)
-      if !moduleID.extraAttributes.contains(PomExtraDependencyAttributes.SbtVersionKey)
+      if !moduleID.extraAttributes.contains(
+        PomExtraDependencyAttributes.SbtVersionKey
+      )
     } yield (moduleID.organization, moduleID.name, moduleID.revision)
   }
 

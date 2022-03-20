@@ -15,23 +15,37 @@ object SonatypeApiMappingRule extends AutoPlugin {
 
   private val JarBaseNameRegex = """(.*)\.jar""".r
 
-  private def nonSbtModuleID: Attributed[File] => Option[(String,String, String, String)] = { jar =>
+  private def nonSbtModuleID
+      : Attributed[File] => Option[(String, String, String, String)] = { jar =>
     jar.data.getName match {
       case JarBaseNameRegex(baseName) =>
         for {
           moduleID <- jar.get(Keys.moduleID.key)
-          if !moduleID.extraAttributes.contains(PomExtraDependencyAttributes.SbtVersionKey)
-        } yield (baseName, moduleID.organization, moduleID.name, moduleID.revision)
+          if !moduleID.extraAttributes.contains(
+            PomExtraDependencyAttributes.SbtVersionKey
+          )
+        } yield (
+          baseName,
+          moduleID.organization,
+          moduleID.name,
+          moduleID.revision
+        )
       case _ =>
         None
     }
   }
 
   private def sonatypeRule: PartialFunction[Attributed[File], URL] = {
-    case nonSbtModuleID.extract(baseName, organization, libraryName, revision) =>
+    case nonSbtModuleID.extract(
+          baseName,
+          organization,
+          libraryName,
+          revision
+        ) =>
       val organizationPath = organization.replace('.', '/')
       url(
-        s"https://oss.sonatype.org/service/local/repositories/public/archive/$organizationPath/$libraryName/$revision/$baseName-javadoc.jar/!/")
+        s"https://oss.sonatype.org/service/local/repositories/public/archive/$organizationPath/$libraryName/$revision/$baseName-javadoc.jar/!/"
+      )
   }
 
   override def projectSettings = {

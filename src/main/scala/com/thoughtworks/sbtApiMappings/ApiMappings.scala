@@ -25,7 +25,10 @@ object ApiMappings extends AutoPlugin {
 
   object autoImport {
     val apiMappingRules =
-      SettingKey[PartialFunction[Attributed[File], URL]]("api-mapping-rules", "Rules to create api-mappings")
+      SettingKey[PartialFunction[Attributed[File], URL]](
+        "api-mapping-rules",
+        "Rules to create api-mappings"
+      )
   }
   import autoImport._
 
@@ -45,7 +48,8 @@ object ApiMappings extends AutoPlugin {
           apiMappings ++= {
             val rules = apiMappingRules.value
             dependencyClasspath.value.collect {
-              case jar @ rules.extract(url) if !apiMappings.value.exists(_._1 == jar.data) =>
+              case jar @ rules.extract(url)
+                  if !apiMappings.value.exists(_._1 == jar.data) =>
                 jar.data -> url
             }(collection.breakOut(Map.canBuildFrom))
           }

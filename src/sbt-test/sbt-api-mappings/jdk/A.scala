@@ -1,4 +1,3 @@
-/**
- * [[java.lang.Throwable]]
- */
+/** [[java.lang.Throwable]]
+  */
 class A
