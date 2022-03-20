@@ -5,5 +5,4 @@ class Main {
 
   def s: java.lang.String = ???
 
-
 }

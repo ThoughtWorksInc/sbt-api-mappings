@@ -32,9 +32,11 @@ check := {
 
   } else {
     log.info("Entries in apiMappings:")
-    compileApiMappings.values.map("+ " + _.toString).foreach(
-      log.info(_)
-    )
+    compileApiMappings.values
+      .map("+ " + _.toString)
+      .foreach(
+        log.info(_)
+      )
     sys.error(s"Failed to match ${expect}")
   }
 }
