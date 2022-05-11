@@ -45,13 +45,13 @@ object ApiMappings extends AutoPlugin {
       inTask(doc) {
         Seq(
           autoAPIMappings := true,
-          apiMappings ++= {
+          apiMappings := {
             val rules = apiMappingRules.value
             dependencyClasspath.value.collect {
               case jar @ rules.extract(url)
                   if !apiMappings.value.exists(_._1 == jar.data) =>
                 jar.data -> url
-            }(collection.breakOut(Map.canBuildFrom))
+            }(collection.breakOut(Map.canBuildFrom)) ++ apiMappings.value
           }
         )
       }
