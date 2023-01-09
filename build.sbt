@@ -16,7 +16,7 @@ scalacOptions += "-deprecation"
 
 libraryDependencies += "com.thoughtworks.extractor" %% "extractor" % "2.1.3"
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.12" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.15" % "test"
 
 scriptedBufferLog := false
 
