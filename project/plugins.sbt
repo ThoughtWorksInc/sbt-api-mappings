@@ -1,15 +1,4 @@
 libraryDependencies += "org.scala-sbt" %% "scripted-plugin" % sbtVersion.value
 
-addSbtPlugin(
-  "com.thoughtworks.sbt-best-practice" % "sbt-best-practice" % "8.2.1"
-)
-
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.12")
-
-addSbtPlugin("com.dwijnand" % "sbt-dynver" % "4.1.1")
-
-addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.1.2")
-
-addSbtPlugin("org.lyranthe.sbt" % "partial-unification" % "1.1.2")
-
-addSbtPlugin("com.thoughtworks.example" % "sbt-example" % "9.2.0")
+// Use jgit 5.x because newer version does not support Java 8, while our CI can run on Java 8
+dependencyOverrides += "org.eclipse.jgit" % "org.eclipse.jgit" % "5.13.2.202306221912-r"
