@@ -1,6 +1,8 @@
 # sbt-api-mappings
 
-[![Build Status](https://travis-ci.org/ThoughtWorksInc/sbt-api-mappings.svg?branch=master)](https://travis-ci.org/ThoughtWorksInc/sbt-api-mappings)
+[![Scala CI](https://github.com/ThoughtWorksInc/sbt-api-mappings/actions/workflows/scala.yml/badge.svg)](https://github.com/ThoughtWorksInc/sbt-api-mappings/actions/workflows/scala.yml)
+[![Scaladoc](https://javadoc.io/badge/com.thoughtworks.sbt-api-mappings/sbt-api-mappings_2.12_1.0/latest.svg?label=scaladoc)](https://javadoc.io/page/com.thoughtworks.sbt-api-mappings/sbt-api-mappings_2.12_1.0/12/com/thoughtworks/sbtApiMappings/index.html)
+[![Latest version](https://index.scala-lang.org/thoughtworksinc/sbt-api-mappings/latest.svg)](https://index.scala-lang.org/thoughtworksinc/sbt-api-mappings)
 
 **sbt-api-mappings** is a sbt plugin that fills `apiMappings` for common Scala libraries.
 
