@@ -1,3 +1,5 @@
+ThisBuild / sonatypeCredentialHost := "central.sonatype.org"
+
 enablePlugins(SbtPlugin)
 
 sbtPlugin := true
