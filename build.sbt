@@ -1,5 +1,3 @@
-ThisBuild / sonatypeCredentialHost := "central.sonatype.org"
-
 enablePlugins(SbtPlugin)
 
 sbtPlugin := true
@@ -28,3 +26,5 @@ scriptedLaunchOpts += s"-Dplugin.version=${version.value}"
   (Test / test).value
   scripted.toTask("").value
 }
+
+ThisBuild / sonatypeCredentialHost := xerial.sbt.Sonatype.sonatypeCentralHost
