@@ -12,10 +12,14 @@ check := {
     "https://www.scala-lang.org/api/2.13.1/"
 
   assert(
-    (apiMappings in Compile in doc).value(scalaInstance.value.libraryJar).toString == expectedScaladocUrl
+    (apiMappings in Compile in doc)
+      .value(scalaInstance.value.libraryJar)
+      .toString == expectedScaladocUrl
   )
   assert(
-    (apiMappings in Test in doc).value(scalaInstance.value.libraryJar).toString == expectedScaladocUrl
+    (apiMappings in Test in doc)
+      .value(scalaInstance.value.libraryJar)
+      .toString == expectedScaladocUrl
   )
 
   val scalacheckJarName = Artifact.artifactName(

@@ -10,7 +10,7 @@ check := {
 
   result match {
     case Some(host) if host.contains("akka.io") => // ok
-    case Some(host) =>
+    case Some(host)                             =>
       sys.error(s"API URL in akka-actor has been changed. Found: [$host]")
     case None => sys.error("No API URL found for akka-actor")
   }
