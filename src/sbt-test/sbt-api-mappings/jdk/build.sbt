@@ -4,7 +4,7 @@ def regexMatches(matcher: scala.util.matching.Regex)(str: String): Boolean = {
   matcher.findFirstIn(str).isDefined
 }
 
-scalaVersion in Global := "2.12.10"
+Global / scalaVersion := "2.12.10"
 
 crossScalaVersions := Seq("2.12.10", "2.13.8")
 
@@ -19,7 +19,7 @@ check := {
 
   val log = sLog.value
 
-  val compileApiMappings = (apiMappings in Compile in doc).value
+  val compileApiMappings = (Compile / doc / apiMappings).value
 
   val expect = "https://docs.oracle.com/(?:en/java/)?javase/\\d+/docs/api/".r
 
