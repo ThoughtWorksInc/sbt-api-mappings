@@ -35,7 +35,7 @@ This plugin resolves the problem.
 addSbtPlugin("com.thoughtworks.sbt-api-mappings" % "sbt-api-mappings" % "latest.release")
 ```
 
-Note that sbt-api-mappings 1.x requires sbt 0.13.x, sbt-api-mappings 2.x requires sbt 1.x.
+Note that sbt-api-mappings 1.x requires sbt 0.13.x, sbt-api-mappings 2.x requires sbt 1.x, and sbt-api-mappings 3.x is cross-built for both sbt 1.x and sbt 2.x.
 
 ### Step 2: Reload the Sbt configuration:
 

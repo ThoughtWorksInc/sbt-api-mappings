@@ -1,7 +1,8 @@
 package com.thoughtworks.sbtApiMappings
 
 import sbt.{AutoPlugin, ModuleID, _}
-import com.thoughtworks.Extractor._
+import Compat._
+import sbtcompat.PluginCompat
 
 /** @author
   *   杨博 (Yang Bo) &lt;pop.atry@gmail.com&gt;
@@ -14,12 +15,16 @@ object SparkApiMappingRule extends AutoPlugin {
 
   override def trigger = allRequirements
 
-  private def moduleID: Attributed[File] => Option[(String, String, String)] =
-    _.get(Keys.moduleID.key).map { moduleID =>
-      (moduleID.organization, moduleID.name, moduleID.revision)
-    }
+  private def moduleID
+      : Attributed[PluginCompat.FileRef] => Option[(String, String, String)] =
+    _.get(PluginCompat.moduleIDStr)
+      .map(PluginCompat.parseModuleIDStrAttribute)
+      .map { moduleID =>
+        (moduleID.organization, moduleID.name, moduleID.revision)
+      }
 
-  private def sparkRule: PartialFunction[Attributed[File], URL] = {
+  private def sparkRule
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compat.DocUrl] = {
     case moduleID.extract("org.apache.spark", _, revision) =>
       url(s"https://spark.apache.org/docs/$revision/api/scala/")
   }

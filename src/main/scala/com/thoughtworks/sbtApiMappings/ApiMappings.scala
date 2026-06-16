@@ -18,14 +18,19 @@ package com.thoughtworks.sbtApiMappings
 
 import sbt._
 import Keys._
-import com.thoughtworks.Extractor._
+import Compat._
 import sbt.plugins.JvmPlugin
+import sbtcompat.PluginCompat
+// Brings `Def.uncached`, which sbt2-compat backfills on sbt 1.x (native on 2.x).
+import sbtcompat.PluginCompat._
 
 object ApiMappings extends AutoPlugin {
 
   object autoImport {
     val apiMappingRules =
-      SettingKey[PartialFunction[Attributed[File], URL]](
+      SettingKey[
+        PartialFunction[Attributed[PluginCompat.FileRef], Compat.DocUrl]
+      ](
         "api-mapping-rules",
         "Rules to create api-mappings"
       )
@@ -41,21 +46,18 @@ object ApiMappings extends AutoPlugin {
   }
 
   override def projectSettings = Seq(Compile, Test).flatMap { config =>
-    inConfig(config) {
-      inTask(doc) {
-        Seq(
-          autoAPIMappings := true,
-          apiMappings ++= {
-            val rules = apiMappingRules.value
-            dependencyClasspath.value.collect {
-              case jar @ rules.extract(url)
-                  if !apiMappings.value.exists(_._1 == jar.data) =>
-                jar.data -> url
-            }(collection.breakOut(Map.canBuildFrom))
-          }
-        )
+    Seq(
+      config / doc / autoAPIMappings := true,
+      config / doc / apiMappings ++= Def.uncached {
+        val rules = apiMappingRules.value
+        val existingMappings = (config / doc / apiMappings).value
+        (config / dependencyClasspath).value.view.collect {
+          case jar @ rules.extract(url)
+              if !existingMappings.exists(_._1 == jar.data) =>
+            jar.data -> url
+        }.toMap
       }
-    }
+    )
   }
 
 }

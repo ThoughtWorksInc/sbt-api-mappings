@@ -15,24 +15,31 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scala:
-          - 2.12.20
-        distribution:
-          - temurin
-        java:
-          - 8
-          - 11
-          - 17
+        # Scala 2.12 builds the sbt 1.x plugin, Scala 3 builds the sbt 2.x plugin.
+        # sbt 2.x requires JDK 17 or later, so Scala 3 is not tested on Java 8/11.
+        include:
+          - scala: 2.12.20
+            java: 8
+            publish: true
+          - scala: 2.12.20
+            java: 11
+          - scala: 2.12.20
+            java: 17
+          - scala: 3.8.4
+            java: 17
+            publish: true
+          - scala: 3.8.4
+            java: 21
 
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Need the git history for sbt-dynver to determine the version
-      - name: Set up JDK 11
+      - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java }}
-          distribution: ${{ matrix.distribution }}
+          distribution: temurin
       - uses: sbt/setup-sbt@v1
       - name: Cache SBT
         uses: actions/cache@v3
@@ -51,5 +58,5 @@ jobs:
       - name: Publish to Maven Central Repository
         env:
           GITHUB_PERSONAL_ACCESS_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
-        if: ${{ env.GITHUB_PERSONAL_ACCESS_TOKEN != '' && github.event_name != 'pull_request' && matrix.java == 8 }}
+        if: ${{ env.GITHUB_PERSONAL_ACCESS_TOKEN != '' && github.event_name != 'pull_request' && matrix.publish }}
         run: sbt ${{matrix.sbt-args}} ++${{ matrix.scala }} publishSigned sonaRelease

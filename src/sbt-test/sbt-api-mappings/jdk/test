@@ -1,4 +1,4 @@
-> 'set scalacOptions in (Compile, doc) += "-Xfatal-warnings"'
+> 'set Compile / doc / scalacOptions += "-Xfatal-warnings"'
 > 'set crossPaths := false'
 > +check
 > +doc
