@@ -20,7 +20,7 @@ object BootstrapApiMappings extends AutoPlugin {
 
   object autoImport {
     val bootstrapJavadocURL =
-      SettingKey[Compatibility.DocUrl](
+      SettingKey[Compatibility.URL](
         "bootstrap-javadoc-url",
         "Javadoc URL for classpath used by bootstrap class loader"
       )

@@ -25,7 +25,7 @@ object ScalaApiMappingRule extends AutoPlugin {
       }
 
   private def scalaRule
-      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.DocUrl] = {
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.URL] = {
     case moduleID.extract("org.scala-lang", "scala-library", revision) =>
       url(s"http://scala-lang.org/files/archive/api/$revision/")
     case moduleID.extract("org.scala-lang", libraryName, revision)

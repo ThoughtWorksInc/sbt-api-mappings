@@ -24,7 +24,7 @@ object SparkApiMappingRule extends AutoPlugin {
       }
 
   private def sparkRule
-      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.DocUrl] = {
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.URL] = {
     case moduleID.extract("org.apache.spark", _, revision) =>
       url(s"https://spark.apache.org/docs/$revision/api/scala/")
   }

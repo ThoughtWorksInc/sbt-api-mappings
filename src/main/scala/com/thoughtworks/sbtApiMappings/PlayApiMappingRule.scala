@@ -24,7 +24,7 @@ object PlayApiMappingRule extends AutoPlugin {
       }
 
   private def playRule
-      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.DocUrl] = {
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.URL] = {
     case moduleID.extract(
           "com.typesafe.play",
           libraryName,

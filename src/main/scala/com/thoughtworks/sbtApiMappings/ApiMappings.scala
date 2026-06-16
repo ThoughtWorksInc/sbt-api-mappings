@@ -29,7 +29,7 @@ object ApiMappings extends AutoPlugin {
   object autoImport {
     val apiMappingRules =
       SettingKey[
-        PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.DocUrl]
+        PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.URL]
       ](
         "api-mapping-rules",
         "Rules to create api-mappings"

@@ -27,7 +27,7 @@ object JavadocIoApiMappingRule extends AutoPlugin {
   }
 
   private def javadocIoRule
-      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.DocUrl] = {
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.URL] = {
     case nonSbtModuleID.extract(organization, libraryName, revision) =>
       url(
         s"https://javadoc.io/page/$organization/$libraryName/$revision/"

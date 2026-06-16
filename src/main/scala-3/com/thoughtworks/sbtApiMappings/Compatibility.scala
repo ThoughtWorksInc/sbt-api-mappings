@@ -1,7 +1,6 @@
 package com.thoughtworks.sbtApiMappings
 
 import java.io.File
-import java.net.URI
 
 import sbt._
 import sbtcompat.PluginCompat
@@ -12,8 +11,8 @@ import xsbti.HashedVirtualFileRef
   */
 private[sbtApiMappings] object Compatibility:
 
-  /** The value type of the `apiMappings` map. */
-  type DocUrl = URI
+  /** The value type of the `apiMappings` map (a `java.net.URI` on sbt 2.x). */
+  type URL = java.net.URI
 
   /** Convert a real [[java.io.File]] (e.g. a JDK bootstrap classpath jar) to an
     * `apiMappings` key.

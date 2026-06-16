@@ -1,7 +1,6 @@
 package com.thoughtworks.sbtApiMappings
 
 import java.io.File
-import java.net.URL
 
 import sbt._
 import sbtcompat.PluginCompat
@@ -12,7 +11,7 @@ import sbtcompat.PluginCompat
 private[sbtApiMappings] object Compatibility {
 
   /** The value type of the `apiMappings` map. */
-  type DocUrl = URL
+  type URL = java.net.URL
 
   /** Convert a real [[java.io.File]] (e.g. a JDK bootstrap classpath jar) to an
     * `apiMappings` key. On sbt 1.x the key is already a `File`.

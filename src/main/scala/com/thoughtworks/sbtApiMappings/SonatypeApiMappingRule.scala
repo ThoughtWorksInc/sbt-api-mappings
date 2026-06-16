@@ -42,7 +42,7 @@ object SonatypeApiMappingRule extends AutoPlugin {
   }
 
   private def sonatypeRule
-      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.DocUrl] = {
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.URL] = {
     case nonSbtModuleID.extract(
           baseName,
           organization,
