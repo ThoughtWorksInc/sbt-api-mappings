@@ -1,7 +1,7 @@
 package com.thoughtworks.sbtApiMappings
 
 import sbt._
-import Compat.Extractor._
+import Compatibility.Extractor._
 import sbtcompat.PluginCompat
 
 /** @author
@@ -24,7 +24,7 @@ object PlayApiMappingRule extends AutoPlugin {
       }
 
   private def playRule
-      : PartialFunction[Attributed[PluginCompat.FileRef], Compat.DocUrl] = {
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.DocUrl] = {
     case moduleID.extract(
           "com.typesafe.play",
           libraryName,

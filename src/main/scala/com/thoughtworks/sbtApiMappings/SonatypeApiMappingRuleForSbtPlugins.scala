@@ -1,7 +1,7 @@
 package com.thoughtworks.sbtApiMappings
 
 import sbt._
-import Compat.Extractor._
+import Compatibility.Extractor._
 import sbtcompat.PluginCompat
 import sbt.internal.librarymanagement.mavenint.PomExtraDependencyAttributes
 
@@ -47,7 +47,7 @@ object SonatypeApiMappingRuleForSbtPlugins extends AutoPlugin {
   }
 
   private def sonatypeRule
-      : PartialFunction[Attributed[PluginCompat.FileRef], Compat.DocUrl] = {
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.DocUrl] = {
     case sbtModuleID.extract(
           baseName,
           organization,

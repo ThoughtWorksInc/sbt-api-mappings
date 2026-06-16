@@ -1,7 +1,7 @@
 package com.thoughtworks.sbtApiMappings
 
 import sbt._
-import Compat.Extractor._
+import Compatibility.Extractor._
 import sbtcompat.PluginCompat
 import sbt.internal.librarymanagement.mavenint.PomExtraDependencyAttributes
 
@@ -27,7 +27,7 @@ object JavadocIoApiMappingRule extends AutoPlugin {
   }
 
   private def javadocIoRule
-      : PartialFunction[Attributed[PluginCompat.FileRef], Compat.DocUrl] = {
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.DocUrl] = {
     case nonSbtModuleID.extract(organization, libraryName, revision) =>
       url(
         s"https://javadoc.io/page/$organization/$libraryName/$revision/"

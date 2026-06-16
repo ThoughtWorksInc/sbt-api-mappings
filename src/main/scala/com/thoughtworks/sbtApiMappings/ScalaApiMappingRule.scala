@@ -2,7 +2,7 @@ package com.thoughtworks.sbtApiMappings
 
 import sbt.{AutoPlugin, ModuleID, VersionNumber, _}
 import Ordering.Implicits._
-import Compat.Extractor._
+import Compatibility.Extractor._
 import sbtcompat.PluginCompat
 
 /** @author
@@ -25,7 +25,7 @@ object ScalaApiMappingRule extends AutoPlugin {
       }
 
   private def scalaRule
-      : PartialFunction[Attributed[PluginCompat.FileRef], Compat.DocUrl] = {
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.DocUrl] = {
     case moduleID.extract("org.scala-lang", "scala-library", revision) =>
       url(s"http://scala-lang.org/files/archive/api/$revision/")
     case moduleID.extract("org.scala-lang", libraryName, revision)

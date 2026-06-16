@@ -9,7 +9,7 @@ import sbtcompat.PluginCompat
 /** sbt 1.x specific bindings: only the pieces that genuinely differ from sbt
   * 2.x. Everything that sbt2-compat can express uniformly is plain shared code.
   */
-private[sbtApiMappings] object Compat {
+private[sbtApiMappings] object Compatibility {
 
   /** The value type of the `apiMappings` map. */
   type DocUrl = URL
@@ -21,7 +21,7 @@ private[sbtApiMappings] object Compat {
     Def.task { (file: File) => file }
 
   /** The `.extract` pattern support, opted into with
-    * `import Compat.Extractor._`. On Scala 2.12 it simply re-exports the
+    * `import Compatibility.Extractor._`. On Scala 2.12 it simply re-exports the
     * `com.thoughtworks.extractor` library.
     */
   val Extractor = com.thoughtworks.Extractor

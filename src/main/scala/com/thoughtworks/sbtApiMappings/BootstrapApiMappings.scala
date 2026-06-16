@@ -20,7 +20,7 @@ object BootstrapApiMappings extends AutoPlugin {
 
   object autoImport {
     val bootstrapJavadocURL =
-      SettingKey[Compat.DocUrl](
+      SettingKey[Compatibility.DocUrl](
         "bootstrap-javadoc-url",
         "Javadoc URL for classpath used by bootstrap class loader"
       )
@@ -52,7 +52,7 @@ object BootstrapApiMappings extends AutoPlugin {
     Seq(
       config / doc / apiMappings ++= Def.uncached {
         val javadocUrl = (config / doc / bootstrapJavadocURL).value
-        val toDocKey = Compat.fileToDocKey.value
+        val toDocKey = Compatibility.fileToDocKey.value
         val log = (config / doc / streams).value.log
 
         if (!ManagementFactory.getRuntimeMXBean.isBootClassPathSupported) {

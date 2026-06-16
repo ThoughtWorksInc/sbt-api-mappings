@@ -10,7 +10,7 @@ import xsbti.HashedVirtualFileRef
 /** sbt 2.x specific bindings: only the pieces that genuinely differ from sbt
   * 1.x. Everything that sbt2-compat can express uniformly is plain shared code.
   */
-private[sbtApiMappings] object Compat:
+private[sbtApiMappings] object Compatibility:
 
   /** The value type of the `apiMappings` map. */
   type DocUrl = URI
@@ -27,7 +27,7 @@ private[sbtApiMappings] object Compat:
       HashedVirtualFileRef.of(file.toPath.toString, ""): PluginCompat.FileRef
     }
 
-  /** The `.extract` pattern support, opted into with `import Compat.Extractor._`.
+  /** The `.extract` pattern support, opted into with `import Compatibility.Extractor._`.
     * The `com.thoughtworks.extractor` library has no Scala 3 build, but on Scala
     * 3 a [[scala.PartialFunction]] is already a valid pattern, so a function (or
     * partial function) only needs to be turned into one.
