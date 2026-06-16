@@ -52,14 +52,5 @@ scriptedLaunchOpts += s"-Dplugin.version=${version.value}"
 
 (Test / test) := {
   (Test / test).value
-  // The all-libraries and jdk scripted fixtures use very old Scala versions
-  // (whose sbt 2.x compiler bridges don't build) and assert sbt 1.x-specific
-  // behaviour (scaladoc output path, autoAPIMappings URLs). Until those fixtures
-  // are modernised, run only keep-api-url under sbt 2.x; sbt 1.x runs them all.
-  Def.taskDyn {
-    if ((pluginCrossBuild / sbtVersion).value.startsWith("2."))
-      scripted.toTask(" sbt-api-mappings/keep-api-url")
-    else
-      scripted.toTask("")
-  }.value
+  scripted.toTask("").value
 }
