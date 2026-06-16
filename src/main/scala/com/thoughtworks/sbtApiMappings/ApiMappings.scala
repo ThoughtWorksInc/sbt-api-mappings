@@ -49,9 +49,9 @@ object ApiMappings extends AutoPlugin {
     Seq(
       config / doc / autoAPIMappings := true,
       config / doc / apiMappings ++= Def.uncached {
-        val rules = apiMappingRules.value
+        val rules = (config / doc / apiMappingRules).value
         val existingMappings = (config / doc / apiMappings).value
-        (config / dependencyClasspath).value.view.collect {
+        (config / doc / dependencyClasspath).value.view.collect {
           case jar @ rules.extract(url)
               if !existingMappings.exists(_._1 == jar.data) =>
             jar.data -> url

@@ -51,9 +51,9 @@ object BootstrapApiMappings extends AutoPlugin {
   override def projectSettings = Seq(Compile, Test).flatMap { config =>
     Seq(
       config / doc / apiMappings ++= Def.uncached {
-        val javadocUrl = bootstrapJavadocURL.value
+        val javadocUrl = (config / doc / bootstrapJavadocURL).value
         val toDocKey = Compat.fileToDocKey.value
-        val log = streams.value.log
+        val log = (config / doc / streams).value.log
 
         if (!ManagementFactory.getRuntimeMXBean.isBootClassPathSupported) {
           // Copied from scala-js/project/Build.scala for Java 9 or later
