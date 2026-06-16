@@ -18,7 +18,7 @@ package com.thoughtworks.sbtApiMappings
 
 import sbt._
 import Keys._
-import Compat._
+import Compat.Extractor._
 import sbt.plugins.JvmPlugin
 import sbtcompat.PluginCompat
 // Brings `Def.uncached`, which sbt2-compat backfills on sbt 1.x (native on 2.x).

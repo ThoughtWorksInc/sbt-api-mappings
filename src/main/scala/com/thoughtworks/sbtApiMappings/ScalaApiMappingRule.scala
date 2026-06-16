@@ -2,7 +2,7 @@ package com.thoughtworks.sbtApiMappings
 
 import sbt.{AutoPlugin, ModuleID, VersionNumber, _}
 import Ordering.Implicits._
-import Compat._
+import Compat.Extractor._
 import sbtcompat.PluginCompat
 
 /** @author

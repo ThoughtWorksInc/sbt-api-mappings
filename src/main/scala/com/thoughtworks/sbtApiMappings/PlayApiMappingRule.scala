@@ -1,7 +1,7 @@
 package com.thoughtworks.sbtApiMappings
 
 import sbt._
-import Compat._
+import Compat.Extractor._
 import sbtcompat.PluginCompat
 
 /** @author

@@ -34,6 +34,16 @@ pluginCrossBuild / sbtVersion := {
 // so most of the plugin sources can be shared across both sbt versions.
 addSbtPlugin("com.github.sbt" % "sbt2-compat" % "0.1.0")
 
+// `.extract` pattern support, reused via `Compat.Extractor`. Only published for
+// Scala 2.12; on Scala 3 a PartialFunction is already a valid pattern, so the
+// Scala 3 `Compat.Extractor` provides an equivalent extension instead.
+libraryDependencies ++= {
+  if (scalaBinaryVersion.value == "2.12")
+    Seq("com.thoughtworks.extractor" %% "extractor" % "2.1.3")
+  else
+    Seq.empty
+}
+
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.20" % "test"
 
 scriptedBufferLog := false
