@@ -1,7 +1,8 @@
 package com.thoughtworks.sbtApiMappings
 
 import sbt._
-import com.thoughtworks.Extractor._
+import Compatibility.Extractor._
+import sbtcompat.PluginCompat
 import sbt.internal.librarymanagement.mavenint.PomExtraDependencyAttributes
 
 object JavadocIoApiMappingRule extends AutoPlugin {
@@ -13,19 +14,24 @@ object JavadocIoApiMappingRule extends AutoPlugin {
   override def trigger = allRequirements
 
   private def nonSbtModuleID
-      : Attributed[File] => Option[(String, String, String)] = { jar =>
-    for {
-      moduleID <- jar.get(Keys.moduleID.key)
-      if !moduleID.extraAttributes.contains(
-        PomExtraDependencyAttributes.SbtVersionKey
-      )
-    } yield (moduleID.organization, moduleID.name, moduleID.revision)
+      : Attributed[PluginCompat.FileRef] => Option[(String, String, String)] = {
+    jar =>
+      for {
+        moduleID <- jar
+          .get(PluginCompat.moduleIDStr)
+          .map(PluginCompat.parseModuleIDStrAttribute)
+        if !moduleID.extraAttributes.contains(
+          PomExtraDependencyAttributes.SbtVersionKey
+        )
+      } yield (moduleID.organization, moduleID.name, moduleID.revision)
   }
 
-  private def javadocIoRule: PartialFunction[Attributed[File], URL] = {
+  private def javadocIoRule
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.URL] = {
     case nonSbtModuleID.extract(organization, libraryName, revision) =>
-      val organizationPath = organization.replace('.', '/')
-      url(s"https://javadoc.io/page/$organization/$libraryName/$revision/")
+      url(
+        s"https://javadoc.io/page/$organization/$libraryName/$revision/"
+      )
   }
 
   override def projectSettings = {

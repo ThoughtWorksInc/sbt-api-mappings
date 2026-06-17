@@ -4,7 +4,9 @@ libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.6.1"
 val check = TaskKey[Unit]("check")
 check := {
   val result = (Compile / doc / apiMappings).value.collectFirst {
-    case (file, url) if (file.getAbsolutePath.contains("akka-actor")) =>
+    // The classpath entry key is a File on sbt 1.x and a HashedVirtualFileRef
+    // on sbt 2.x; matching on its toString works on both.
+    case (key, url) if key.toString.contains("akka-actor") =>
       url.getHost
   }
 

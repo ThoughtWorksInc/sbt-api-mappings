@@ -2,7 +2,8 @@ package com.thoughtworks.sbtApiMappings
 
 import sbt.{AutoPlugin, ModuleID, VersionNumber, _}
 import Ordering.Implicits._
-import com.thoughtworks.Extractor._
+import Compatibility.Extractor._
+import sbtcompat.PluginCompat
 
 /** @author
   *   杨博 (Yang Bo) &lt;pop.atry@gmail.com&gt;
@@ -15,12 +16,16 @@ object ScalaApiMappingRule extends AutoPlugin {
 
   override def trigger = allRequirements
 
-  private def moduleID: Attributed[File] => Option[(String, String, String)] =
-    _.get(Keys.moduleID.key).map { moduleID =>
-      (moduleID.organization, moduleID.name, moduleID.revision)
-    }
+  private def moduleID
+      : Attributed[PluginCompat.FileRef] => Option[(String, String, String)] =
+    _.get(PluginCompat.moduleIDStr)
+      .map(PluginCompat.parseModuleIDStrAttribute)
+      .map { moduleID =>
+        (moduleID.organization, moduleID.name, moduleID.revision)
+      }
 
-  private def scalaRule: PartialFunction[Attributed[File], URL] = {
+  private def scalaRule
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.URL] = {
     case moduleID.extract("org.scala-lang", "scala-library", revision) =>
       url(s"http://scala-lang.org/files/archive/api/$revision/")
     case moduleID.extract("org.scala-lang", libraryName, revision)
@@ -28,8 +33,9 @@ object ScalaApiMappingRule extends AutoPlugin {
         if libraryName.startsWith("scala-") && VersionNumber(
           revision
         ).numbers >= Seq(2, 11, 0) =>
-      url(s"http://scala-lang.org/files/archive/api/$revision/$libraryName/")
-
+      url(
+        s"http://scala-lang.org/files/archive/api/$revision/$libraryName/"
+      )
   }
 
   override def projectSettings = {

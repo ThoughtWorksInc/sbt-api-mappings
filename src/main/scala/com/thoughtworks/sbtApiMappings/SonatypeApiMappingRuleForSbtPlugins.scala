@@ -1,7 +1,8 @@
 package com.thoughtworks.sbtApiMappings
 
 import sbt._
-import com.thoughtworks.Extractor._
+import Compatibility.Extractor._
+import sbtcompat.PluginCompat
 import sbt.internal.librarymanagement.mavenint.PomExtraDependencyAttributes
 
 /** Mapping to sonatype.org URL only for artifacts that are not supported by
@@ -17,13 +18,15 @@ object SonatypeApiMappingRuleForSbtPlugins extends AutoPlugin {
 
   private val JarBaseNameRegex = """(.*)\.jar""".r
 
-  private def sbtModuleID: Attributed[File] => Option[
+  private def sbtModuleID: Attributed[PluginCompat.FileRef] => Option[
     (String, String, String, String, String, String)
   ] = { jar =>
-    jar.data.getName match {
+    jar.data.name match {
       case JarBaseNameRegex(baseName) =>
         for {
-          moduleID <- jar.get(Keys.moduleID.key)
+          moduleID <- jar
+            .get(PluginCompat.moduleIDStr)
+            .map(PluginCompat.parseModuleIDStrAttribute)
           sbtVerion <- moduleID.extraAttributes.get(
             PomExtraDependencyAttributes.SbtVersionKey
           )
@@ -43,7 +46,8 @@ object SonatypeApiMappingRuleForSbtPlugins extends AutoPlugin {
     }
   }
 
-  private def sonatypeRule: PartialFunction[Attributed[File], URL] = {
+  private def sonatypeRule
+      : PartialFunction[Attributed[PluginCompat.FileRef], Compatibility.URL] = {
     case sbtModuleID.extract(
           baseName,
           organization,

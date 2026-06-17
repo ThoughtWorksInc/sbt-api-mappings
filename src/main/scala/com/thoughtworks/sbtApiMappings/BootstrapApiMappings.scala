@@ -2,11 +2,12 @@ package com.thoughtworks.sbtApiMappings
 
 import java.io.File
 import java.lang.management.ManagementFactory
-import java.net.URL
 
 import sbt._
 import sbt.Keys._
 import sbt.plugins.JvmPlugin
+// Brings `Def.uncached`, which sbt2-compat backfills on sbt 1.x (native on 2.x).
+import sbtcompat.PluginCompat._
 
 /** API mappings for classpath used by the bootstrap class loader.
   * @author
@@ -19,7 +20,7 @@ object BootstrapApiMappings extends AutoPlugin {
 
   object autoImport {
     val bootstrapJavadocURL =
-      SettingKey[URL](
+      SettingKey[Compatibility.URL](
         "bootstrap-javadoc-url",
         "Javadoc URL for classpath used by bootstrap class loader"
       )
@@ -43,32 +44,31 @@ object BootstrapApiMappings extends AutoPlugin {
     }
   }
 
-  override def globalSettings: Seq[Def.Setting[_]] = Seq(
+  override def globalSettings = Seq(
     bootstrapJavadocURL := defaultBootstrapJavadocUrl
   )
 
   override def projectSettings = Seq(Compile, Test).flatMap { config =>
-    inConfig(config) {
-      inTask(doc) {
-        Seq(
-          apiMappings ++= {
-            val url = bootstrapJavadocURL.value
-            val log = streams.value.log
+    Seq(
+      config / doc / apiMappings ++= Def.uncached {
+        val javadocUrl = (config / doc / bootstrapJavadocURL).value
+        val toDocKey = Compatibility.fileToDocKey.value
+        val log = (config / doc / streams).value.log
 
-            if (!ManagementFactory.getRuntimeMXBean.isBootClassPathSupported) {
-              // Copied from scala-js/project/Build.scala for Java 9 or later
-              Map(file("/modules/java.base") -> url)
-            } else {
-              ManagementFactory.getRuntimeMXBean.getBootClassPath
-                .split(File.pathSeparatorChar)
-                .map { jar =>
-                  new File(jar) -> url
-                }(collection.breakOut(Map.canBuildFrom))
+        if (!ManagementFactory.getRuntimeMXBean.isBootClassPathSupported) {
+          // Copied from scala-js/project/Build.scala for Java 9 or later
+          Map(toDocKey(file("/modules/java.base")) -> javadocUrl)
+        } else {
+          ManagementFactory.getRuntimeMXBean.getBootClassPath
+            .split(File.pathSeparatorChar)
+            .view
+            .map { jar =>
+              toDocKey(new File(jar)) -> javadocUrl
             }
-          }
-        )
+            .toMap
+        }
       }
-    }
+    )
   }
 
 }
