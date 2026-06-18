@@ -18,12 +18,12 @@ jobs:
         # Scala 2.12 builds the sbt 1.x plugin, Scala 3 builds the sbt 2.x plugin.
         # sbt 2.x requires JDK 17 or later, so Scala 3 is not tested on Java 8/11.
         include:
-          - scala: 2.12.20
+          - scala: 2.12.21
             java: 8
             publish: true
-          - scala: 2.12.20
+          - scala: 2.12.21
             java: 11
-          - scala: 2.12.20
+          - scala: 2.12.21
             java: 17
           - scala: 3.8.4
             java: 17
