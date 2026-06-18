@@ -5,9 +5,9 @@ def regexMatches(matcher: scala.util.matching.Regex)(str: String): Boolean = {
   matcher.findFirstIn(str).isDefined
 }
 
-Global / scalaVersion := "2.12.20"
+Global / scalaVersion := "2.12.21"
 
-crossScalaVersions := Seq("2.12.20", "2.13.16")
+crossScalaVersions := Seq("2.12.21", "2.13.16")
 
 check := {
 

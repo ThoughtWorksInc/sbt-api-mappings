@@ -14,7 +14,7 @@ startYear := Some(2015)
 
 scalacOptions += "-deprecation"
 
-val scala212 = "2.12.20"
+val scala212 = "2.12.21"
 
 val scala3 = "3.8.4"
 
