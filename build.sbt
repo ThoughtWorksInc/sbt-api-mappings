@@ -32,7 +32,7 @@ pluginCrossBuild / sbtVersion := {
 
 // Compatibility layer that exposes a subset of the sbt 2 API using sbt 1 API,
 // so most of the plugin sources can be shared across both sbt versions.
-addSbtPlugin("com.github.sbt" % "sbt2-compat" % "0.1.0")
+addSbtPlugin("com.github.sbt" % "sbt2-compat" % "0.2.0")
 
 // `.extract` pattern support, reused via `Compat.Extractor`. Only published for
 // Scala 2.12; on Scala 3 a PartialFunction is already a valid pattern, so the
