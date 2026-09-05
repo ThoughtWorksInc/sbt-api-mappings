@@ -16,7 +16,7 @@ scalacOptions += "-deprecation"
 
 val scala212 = "2.12.20"
 
-val scala3 = "3.8.4"
+val scala3 = "3.9.0"
 
 // Cross-build for both sbt 1.x (Scala 2.12) and sbt 2.x (Scala 3).
 crossScalaVersions := Seq(scala212, scala3)
