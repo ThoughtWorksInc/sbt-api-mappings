@@ -15,21 +15,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Scala 2.12 builds the sbt 1.x plugin, Scala 3 builds the sbt 2.x plugin.
-        # sbt 2.x requires JDK 17 or later, so Scala 3 is not tested on Java 8/11.
-        include:
-          - scala: 2.12.20
+        # Scala 2.12 builds the sbt 1.x plugin, Scala 3 builds the sbt 2.x
+        # plugin. sbt-best-practice derives crossScalaVersions from this list.
+        scala:
+          - 2.12.20
+          - 3.8.4
+        distribution:
+          - temurin
+        java:
+          - 8
+          - 11
+          - 17
+          - 21
+        exclude:
+          # sbt 2.x requires JDK 17 or later.
+          - scala: 3.8.4
             java: 8
-            publish: true
-          - scala: 2.12.20
+          - scala: 3.8.4
             java: 11
-          - scala: 2.12.20
-            java: 17
-          - scala: 3.8.4
-            java: 17
-            publish: true
-          - scala: 3.8.4
-            java: 21
 
     steps:
       - uses: actions/checkout@v3
@@ -39,7 +42,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: ${{ matrix.java }}
-          distribution: temurin
+          distribution: ${{ matrix.distribution }}
       - uses: sbt/setup-sbt@v1
       - name: Cache SBT
         uses: actions/cache@v3
@@ -55,8 +58,9 @@ jobs:
             ${{runner.os}}-${{matrix.scala}}-
       - name: Run tests
         run: sbt ${{matrix.sbt-args}} ++${{ matrix.scala }} test
+      # Publish each Scala version once, on the oldest JDK that it supports.
       - name: Publish to Maven Central Repository
         env:
           GITHUB_PERSONAL_ACCESS_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
-        if: ${{ env.GITHUB_PERSONAL_ACCESS_TOKEN != '' && github.event_name != 'pull_request' && matrix.publish }}
+        if: ${{ env.GITHUB_PERSONAL_ACCESS_TOKEN != '' && github.event_name != 'pull_request' && ((startsWith(matrix.scala, '2.') && matrix.java == 8) || (startsWith(matrix.scala, '3.') && matrix.java == 17)) }}
         run: sbt ${{matrix.sbt-args}} ++${{ matrix.scala }} publishSigned sonaRelease
