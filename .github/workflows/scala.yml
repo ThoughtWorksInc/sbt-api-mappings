@@ -29,9 +29,9 @@ jobs:
           - 21
         exclude:
           # sbt 2.x requires JDK 17 or later.
-          - scala: 3.8.4
+          - scala: 3.9.0
             java: 8
-          - scala: 3.8.4
+          - scala: 3.9.0
             java: 11
 
     steps:
