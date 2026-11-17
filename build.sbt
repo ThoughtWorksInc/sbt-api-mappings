@@ -14,13 +14,16 @@ startYear := Some(2015)
 
 scalacOptions += "-deprecation"
 
-// Cross-build for both sbt 1.x (Scala 2.12) and sbt 2.x (Scala 3). The Scala
-// versions are not configured here: sbt-best-practice derives scalaVersion and
-// crossScalaVersions from the build matrix in .github/workflows/scala.yml.
+// Keep the plugin compiler baselines explicit rather than deriving them from CI.
+scalaVersion := "2.12.21"
+crossScalaVersions := Seq("2.12.21", "3.9.0")
+scalacOptions ++= {
+  if (scalaBinaryVersion.value == "2.12") Seq("-Xsource:3", "-release:8") else Nil
+}
 pluginCrossBuild / sbtVersion := {
   scalaBinaryVersion.value match {
-    case "2.12" => sbtVersion.value // sbt 1.x, from project/build.properties
-    case _      => "2.0.0" // sbt 2.x
+    case "2.12" => "1.13.1"
+    case _      => "2.1.0"
   }
 }
 

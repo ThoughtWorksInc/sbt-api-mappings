@@ -3,7 +3,7 @@ package com.thoughtworks.sbtApiMappings
 import sbt._
 import Compatibility.Extractor._
 import sbtcompat.PluginCompat
-import sbt.internal.librarymanagement.mavenint.PomExtraDependencyAttributes
+import Compatibility.PomExtraDependencyAttributes
 
 object JavadocIoApiMappingRule extends AutoPlugin {
 

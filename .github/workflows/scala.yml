@@ -16,10 +16,10 @@ jobs:
       fail-fast: false
       matrix:
         # Scala 2.12 builds the sbt 1.x plugin, Scala 3 builds the sbt 2.x
-        # plugin. sbt-best-practice derives crossScalaVersions from this list.
+        # plugin. Keep these lanes aligned with the explicit build settings.
         scala:
-          - 2.12.20
-          - 3.8.4
+          - "2.12.x"
+          - "3.x"
         distribution:
           - temurin
         java:
@@ -27,11 +27,12 @@ jobs:
           - 11
           - 17
           - 21
+          - 25
         exclude:
           # sbt 2.x requires JDK 17 or later.
-          - scala: 3.8.4
+          - scala: "3.x"
             java: 8
-          - scala: 3.8.4
+          - scala: "3.x"
             java: 11
 
     steps:
@@ -58,9 +59,9 @@ jobs:
             ${{runner.os}}-${{matrix.scala}}-
       - name: Run tests
         run: sbt ${{matrix.sbt-args}} ++${{ matrix.scala }} test
-      # Publish each Scala version once, on the oldest JDK that it supports.
+      # Publish both plugin lanes on JDK 17, retaining the sbt 1 bytecode target.
       - name: Publish to Maven Central Repository
         env:
           GITHUB_PERSONAL_ACCESS_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
-        if: ${{ env.GITHUB_PERSONAL_ACCESS_TOKEN != '' && github.event_name != 'pull_request' && ((startsWith(matrix.scala, '2.') && matrix.java == 8) || (startsWith(matrix.scala, '3.') && matrix.java == 17)) }}
+        if: ${{ env.GITHUB_PERSONAL_ACCESS_TOKEN != '' && github.repository == 'ThoughtWorksInc/sbt-api-mappings' && github.event_name != 'pull_request' && matrix.java == 17 && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')) }}
         run: sbt ${{matrix.sbt-args}} ++${{ matrix.scala }} publishSigned sonaRelease

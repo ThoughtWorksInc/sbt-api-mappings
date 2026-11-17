@@ -9,6 +9,7 @@ import sbtcompat.PluginCompat
   * 2.x. Everything that sbt2-compat can express uniformly is plain shared code.
   */
 private[sbtApiMappings] object Compatibility {
+  val PomExtraDependencyAttributes = sbt.internal.librarymanagement.mavenint.PomExtraDependencyAttributes
 
   /** The value type of the `apiMappings` map. */
   type URL = java.net.URL
