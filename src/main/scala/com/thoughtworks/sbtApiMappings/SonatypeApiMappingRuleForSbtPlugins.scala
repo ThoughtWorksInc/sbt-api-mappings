@@ -3,7 +3,7 @@ package com.thoughtworks.sbtApiMappings
 import sbt._
 import Compatibility.Extractor._
 import sbtcompat.PluginCompat
-import sbt.internal.librarymanagement.mavenint.PomExtraDependencyAttributes
+import Compatibility.PomExtraDependencyAttributes
 
 /** Mapping to sonatype.org URL only for artifacts that are not supported by
   * javadoc.io

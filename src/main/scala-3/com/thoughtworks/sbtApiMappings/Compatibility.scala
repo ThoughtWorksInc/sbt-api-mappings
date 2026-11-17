@@ -10,6 +10,7 @@ import xsbti.HashedVirtualFileRef
   * 1.x. Everything that sbt2-compat can express uniformly is plain shared code.
   */
 private[sbtApiMappings] object Compatibility:
+  val PomExtraDependencyAttributes = sbt.internal.librarymanagement.mavenint.PomExtraAttributeKeys
 
   /** The value type of the `apiMappings` map (a `java.net.URI` on sbt 2.x). */
   type URL = java.net.URI
