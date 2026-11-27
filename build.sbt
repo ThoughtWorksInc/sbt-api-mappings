@@ -19,7 +19,7 @@ scalacOptions += "-deprecation"
 // crossScalaVersions from the build matrix in .github/workflows/scala.yml.
 pluginCrossBuild / sbtVersion := {
   scalaBinaryVersion.value match {
-    case "2.12" => sbtVersion.value // sbt 1.x, from project/build.properties
+    case "2.12" => "1.13.1" // sbt 1.x
     case _      => "2.0.0" // sbt 2.x
   }
 }
