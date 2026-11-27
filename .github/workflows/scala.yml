@@ -37,6 +37,17 @@ jobs:
             java: 8
           - scala: 3.8.4
             java: 11
+        include:
+          # sbt 2.x requires JDK 17 or later; keep Scala 2.12 cross-builds on
+          # sbt 1.x for the Java 8 and 11 matrix entries.
+          - scala: 2.12.20
+            distribution: temurin
+            java: 8
+            sbt-args: -Dsbt.version=1.13.1
+          - scala: 2.12.20
+            distribution: temurin
+            java: 11
+            sbt-args: -Dsbt.version=1.13.1
 
     steps:
       - uses: actions/checkout@v3
@@ -61,7 +72,7 @@ jobs:
             ${{runner.os}}-${{matrix.scala}}-${{hashFiles('**/*.sbt')}}-
             ${{runner.os}}-${{matrix.scala}}-
       - name: Run tests
-        run: sbt ${{matrix.sbt-args}} ++${{ matrix.scala }} test
+        run: sbt ${{matrix.sbt-args}} ++${{ matrix.scala }} test scripted
       # Publish each Scala version once, on the oldest JDK that it supports.
       - name: Publish to Maven Central Repository
         env:

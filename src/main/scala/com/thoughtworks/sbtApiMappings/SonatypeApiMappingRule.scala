@@ -3,7 +3,6 @@ package com.thoughtworks.sbtApiMappings
 import sbt._
 import Compatibility.Extractor._
 import sbtcompat.PluginCompat
-import sbt.internal.librarymanagement.mavenint.PomExtraDependencyAttributes
 
 /** Mapping to sonatype.org URL for all artifacts */
 object SonatypeApiMappingRule extends AutoPlugin {
@@ -28,7 +27,7 @@ object SonatypeApiMappingRule extends AutoPlugin {
             .get(PluginCompat.moduleIDStr)
             .map(PluginCompat.parseModuleIDStrAttribute)
           if !moduleID.extraAttributes.contains(
-            PomExtraDependencyAttributes.SbtVersionKey
+            Compatibility.sbtVersionAttribute
           )
         } yield (
           baseName,
