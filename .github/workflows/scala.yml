@@ -31,22 +31,22 @@ jobs:
           - 11
           - 17
           - 21
-        sbt-version:
-          - project
-          - "2.1.1"
+        sbt-args:
+          - ""
+          - -Dsbt.version=2.1.1
         exclude:
           # Scala 2.12 targets sbt 1.x; Scala 3 targets sbt 2.x.
           - scala: 2.12.20
-            sbt-version: "2.1.1"
+            sbt-args: -Dsbt.version=2.1.1
           - scala: 3.8.4
-            sbt-version: project
+            sbt-args: ""
           # sbt 2.x requires JDK 17 or later.
           - scala: 3.8.4
             java: 8
-            sbt-version: "2.1.1"
+            sbt-args: -Dsbt.version=2.1.1
           - scala: 3.8.4
             java: 11
-            sbt-version: "2.1.1"
+            sbt-args: -Dsbt.version=2.1.1
     steps:
       - uses: actions/checkout@v3
         with:
@@ -66,14 +66,14 @@ jobs:
             ~/.sbt/
             ~/.coursier/
           key: |
-            ${{runner.os}}-${{matrix.scala}}-${{hashFiles('**/*.sbt')}}-${{matrix.sbt-version}}
+            ${{runner.os}}-${{matrix.scala}}-${{hashFiles('**/*.sbt')}}-${{matrix.sbt-args}}
             ${{runner.os}}-${{matrix.scala}}-${{hashFiles('**/*.sbt')}}-
             ${{runner.os}}-${{matrix.scala}}-
       - name: Run tests
-        run: sbt ${{ matrix.sbt-version == 'project' && '' || format('-Dsbt.version={0}', matrix.sbt-version) }} ++${{ matrix.scala }} test scripted
+        run: sbt ${{matrix.sbt-args}} ++${{ matrix.scala }} test scripted
       # Publish each Scala version once, on the oldest JDK that it supports.
       - name: Publish to Maven Central Repository
         env:
           GITHUB_PERSONAL_ACCESS_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
         if: ${{ env.GITHUB_PERSONAL_ACCESS_TOKEN != '' && github.event_name != 'pull_request' && ((startsWith(matrix.scala, '2.') && matrix.java == 8) || (startsWith(matrix.scala, '3.') && matrix.java == 17)) }}
-        run: sbt ${{ matrix.sbt-version == 'project' && '' || format('-Dsbt.version={0}', matrix.sbt-version) }} ++${{ matrix.scala }} publishSigned sonaRelease
+        run: sbt ${{matrix.sbt-args}} ++${{ matrix.scala }} publishSigned sonaRelease
