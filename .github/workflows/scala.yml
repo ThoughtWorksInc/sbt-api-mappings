@@ -38,17 +38,15 @@ jobs:
           - scala: 3.8.4
             java: 11
         include:
-          # sbt 2.x requires JDK 17 or later; keep Scala 2.12 cross-builds on
-          # sbt 1.x for the Java 8 and 11 matrix entries.
-          - scala: 2.12.20
+          # Run the Scala 3 plugin build with sbt 2; the project defaults to sbt 1.
+          - scala: 3.8.4
             distribution: temurin
-            java: 8
-            sbt-args: -Dsbt.version=1.13.1
-          - scala: 2.12.20
+            java: 17
+            sbt-args: -Dsbt.version=2.1.1
+          - scala: 3.8.4
             distribution: temurin
-            java: 11
-            sbt-args: -Dsbt.version=1.13.1
-
+            java: 21
+            sbt-args: -Dsbt.version=2.1.1
     steps:
       - uses: actions/checkout@v3
         with:
