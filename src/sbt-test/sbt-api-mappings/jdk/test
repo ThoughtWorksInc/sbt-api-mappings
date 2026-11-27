@@ -1,0 +1,5 @@
+> 'set Compile / doc / scalacOptions += "-Xfatal-warnings"'
+> 'set crossPaths := false'
+> +check
+> +doc
+> +checkDoc
