@@ -20,7 +20,7 @@ scalacOptions += "-deprecation"
 pluginCrossBuild / sbtVersion := {
   scalaBinaryVersion.value match {
     case "2.12" => sbtVersion.value // sbt 1.x, from project/build.properties
-    case _      => "2.0.0" // sbt 2.x
+    case _      => "2.1.1" // sbt 2.x
   }
 }
 
