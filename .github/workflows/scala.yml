@@ -23,7 +23,7 @@ jobs:
         # plugin. sbt-best-practice derives crossScalaVersions from this list.
         scala:
           - 2.12.20
-          - 3.8.4
+          - 3.9.0
         distribution:
           - temurin
         java:
