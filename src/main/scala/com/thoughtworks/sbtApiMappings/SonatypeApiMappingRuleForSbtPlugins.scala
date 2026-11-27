@@ -3,7 +3,6 @@ package com.thoughtworks.sbtApiMappings
 import sbt._
 import Compatibility.Extractor._
 import sbtcompat.PluginCompat
-import sbt.internal.librarymanagement.mavenint.PomExtraDependencyAttributes
 
 /** Mapping to sonatype.org URL only for artifacts that are not supported by
   * javadoc.io
@@ -28,10 +27,10 @@ object SonatypeApiMappingRuleForSbtPlugins extends AutoPlugin {
             .get(PluginCompat.moduleIDStr)
             .map(PluginCompat.parseModuleIDStrAttribute)
           sbtVerion <- moduleID.extraAttributes.get(
-            PomExtraDependencyAttributes.SbtVersionKey
+            Compatibility.sbtVersionAttribute
           )
           scalaVerion <- moduleID.extraAttributes.get(
-            PomExtraDependencyAttributes.ScalaVersionKey
+            Compatibility.scalaVersionAttribute
           )
         } yield (
           baseName,

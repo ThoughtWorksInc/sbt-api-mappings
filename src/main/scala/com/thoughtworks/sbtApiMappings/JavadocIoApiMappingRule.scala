@@ -3,7 +3,6 @@ package com.thoughtworks.sbtApiMappings
 import sbt._
 import Compatibility.Extractor._
 import sbtcompat.PluginCompat
-import sbt.internal.librarymanagement.mavenint.PomExtraDependencyAttributes
 
 object JavadocIoApiMappingRule extends AutoPlugin {
 
@@ -21,7 +20,7 @@ object JavadocIoApiMappingRule extends AutoPlugin {
           .get(PluginCompat.moduleIDStr)
           .map(PluginCompat.parseModuleIDStrAttribute)
         if !moduleID.extraAttributes.contains(
-          PomExtraDependencyAttributes.SbtVersionKey
+          Compatibility.sbtVersionAttribute
         )
       } yield (moduleID.organization, moduleID.name, moduleID.revision)
   }

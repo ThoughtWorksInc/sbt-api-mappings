@@ -14,6 +14,9 @@ private[sbtApiMappings] object Compatibility:
   /** The value type of the `apiMappings` map (a `java.net.URI` on sbt 2.x). */
   type URL = java.net.URI
 
+  val sbtVersionAttribute = "sbtVersion"
+  val scalaVersionAttribute = "scalaVersion"
+
   /** Convert a real [[java.io.File]] (e.g. a JDK bootstrap classpath jar) to an
     * `apiMappings` key.
     *

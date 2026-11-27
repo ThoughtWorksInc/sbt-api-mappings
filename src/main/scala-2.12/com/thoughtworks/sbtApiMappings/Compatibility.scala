@@ -13,6 +13,11 @@ private[sbtApiMappings] object Compatibility {
   /** The value type of the `apiMappings` map. */
   type URL = java.net.URL
 
+  val sbtVersionAttribute =
+    sbt.internal.librarymanagement.mavenint.PomExtraDependencyAttributes.SbtVersionKey
+  val scalaVersionAttribute =
+    sbt.internal.librarymanagement.mavenint.PomExtraDependencyAttributes.ScalaVersionKey
+
   /** Convert a real [[java.io.File]] (e.g. a JDK bootstrap classpath jar) to an
     * `apiMappings` key. On sbt 1.x the key is already a `File`.
     */
