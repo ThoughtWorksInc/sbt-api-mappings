@@ -5,6 +5,10 @@ def regexMatches(matcher: scala.util.matching.Regex)(str: String): Boolean = {
   matcher.findFirstIn(str).isDefined
 }
 
+Global / scalaVersion := "2.12.21"
+
+crossScalaVersions := Seq("2.12.21", "2.13.16")
+
 check := {
 
   // Avoid `sLog.value`: on sbt 2.x a Logger has no HashWriter, so reading it as a
